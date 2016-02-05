@@ -1,0 +1,2 @@
+# justo-generator
+Generator support.
