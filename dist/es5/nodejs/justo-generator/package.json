@@ -1,6 +1,6 @@
 {
   "name": "justo-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generator support.",
   "homepage": "http://www.justojs.org",
   "author": {
@@ -33,7 +33,8 @@
   },
   "dependencies": {
     "inquirer": "*",
-    "deasync": "*"
+    "deasync": "*",
+    "justo-fs": "*"
   },
   "peerDependencies": {},
   "devDependencies": {
@@ -47,7 +48,6 @@
     "grunt-mocha-test": "*",
     "justo-assert": "*",
     "justo-assert-fs": "*",
-    "justo-fs": "*",
     "mocha": "*"
   },
   "preferGlobal": false,
