@@ -1,0 +1,61 @@
+{
+  "name": "justo-generator",
+  "version": "0.1.0",
+  "description": "Generator support.",
+  "homepage": "http://www.justojs.org",
+  "author": {
+    "name": "Justo Labs",
+    "email": "justojs@justolabs.com",
+    "url": "http://www.justojs.org"
+  },
+  "contributors": [
+    {
+      "name": "Raúl G. González",
+      "email": "raulggonzalez@justojs.org",
+      "url": ""
+    }
+  ],
+  "keywords": [
+    "Justo",
+    "Justo.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/justojs/justo-generator/issues",
+    "email": "issues@justojs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justojs/justo-generator.git"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "dependencies": {
+    "inquirer": "*",
+    "deasync": "*"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "*",
+    "grunt": "^0.4.5",
+    "grunt-babel": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-travis-lint": "*",
+    "grunt-mocha-test": "*",
+    "justo-assert": "*",
+    "justo-assert-fs": "*",
+    "justo-fs": "*",
+    "mocha": "*"
+  },
+  "preferGlobal": false,
+  "main": "index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "grunt test"
+  }
+}

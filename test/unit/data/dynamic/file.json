@@ -1,0 +1,6 @@
+{
+  "name": "${scope.name}",
+  "version": "${scope.version}",
+  "author": "Justo Labs",
+  "homepage": "${scope.homepage}"
+}
