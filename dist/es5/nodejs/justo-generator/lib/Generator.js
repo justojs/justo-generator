@@ -71,7 +71,7 @@ Generator = function () {
 
 
     {
-      this.answers = {};
+      this.answers = Object.assign({}, this.responses);
       this.init();
       this.prompt(this.answers);
       this.generate(this.answers);
