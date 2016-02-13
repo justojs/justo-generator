@@ -333,7 +333,7 @@ Generator = function () {
 
 
     entry) {
-      var src, text, scope, alias;for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
+      var src, text, scope, dir, alias;for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
 
 
       if (args.length === 0) {
@@ -347,6 +347,12 @@ Generator = function () {
 
       src = new fs.File(this.base, entry);
       if (!src.exists()) throw new Error("The '" + src.path + "' file doesn't exist.");
+
+
+      dir = { 
+        path: process.cwd(), 
+        name: _path2.default.basename(process.cwd()), 
+        parent: _path2.default.dirname(process.cwd()) };
 
 
       text = src.text;
