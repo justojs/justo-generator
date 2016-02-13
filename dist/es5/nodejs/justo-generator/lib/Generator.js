@@ -38,6 +38,15 @@ Generator = function () {
 
 
 
+
+
+
+
+
+
+
+
+
     {} }, { key: "fin", value: function fin() 
 
 
@@ -377,4 +386,4 @@ Generator = function () {
 
       if (!dir.exists()) {
         if (!dir.create()) {
-          throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");}}} }, { key: "base", get: function get() {return this.src;} }]);return Generator;}();exports.default = Generator;
+          throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");}}} }, { key: "base", get: function get() {return this.src;} }, { key: "help", get: function get() {return {};} }]);return Generator;}();exports.default = Generator;
