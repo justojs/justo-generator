@@ -345,13 +345,14 @@ Generator = function () {
       var src, text, scope, dir, alias;for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
 
 
-      if (args.length === 0) {
-        throw new Error("Scope hasn't been specified.");} else 
       if (args.length == 1) {
+        if (typeof args[0] == "string") alias = args[0];else 
         scope = args[0];} else 
-      {
+      if (args.length >= 2) {
         alias = args[0];scope = args[1];}
 
+
+      if (!scope) scope = {};
 
 
       src = new fs.File(this.base, entry);

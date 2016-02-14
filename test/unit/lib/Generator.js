@@ -236,7 +236,9 @@ describe("Generator", function() {
 
     describe("#template()", function() {
       it("template(file)", function() {
-        gen.template.must.raise(Error, ["dynamic/file.json"]);
+        gen.template("dynamic/file.json");
+        file(DST.path, "dynamic/file.json").must.exist();
+        file(DST.path, "dynamic/file.json").json.must.be.eq({name: "undefined", version: "undefined", author: "Justo Labs", homepage: "undefined"});
       });
 
       it("template(file, scope)", function() {
