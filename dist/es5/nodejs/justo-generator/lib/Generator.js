@@ -1,8 +1,10 @@
-"use strict";Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _path = require("path");var _path2 = _interopRequireDefault(_path);var _inquirer = require("inquirer");var _inquirer2 = _interopRequireDefault(_inquirer);var _deasync = require("deasync");var _deasync2 = _interopRequireDefault(_deasync);var _justoFs = require("justo-fs");var 
+"use strict";Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _path = require("path");var _path2 = _interopRequireDefault(_path);var _justoInquirer = require("justo-inquirer");var _justoFs = require("justo-fs");var 
 
 
+fs = _interopRequireWildcard(_justoFs);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
 
-fs = _interopRequireWildcard(_justoFs);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var 
+
+var inquirer = new _justoInquirer.Inquirer();var 
 
 
 
@@ -98,21 +100,8 @@ Generator = function () {
       var res;
 
 
-      if (this.responses.hasOwnProperty(q.name)) {
-        res = this.responses[q.name];} else 
-      {
-        (0, _deasync2.default)(function (done) {
-          _inquirer2.default.prompt({ 
-            type: "confirm", 
-            name: q.name, 
-            message: q.title || q.name, 
-            default: q.default }, 
-          function (answers) {
-            res = answers[q.name];
-            done();});})();}
-
-
-
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      res = inquirer.confirm(q);
 
       this.answers[q.name] = res;
 
@@ -130,47 +119,8 @@ Generator = function () {
       var res;
 
 
-      if (this.responses.hasOwnProperty(q.name)) {
-        res = this.responses[q.name];} else 
-      {
-        (0, _deasync2.default)(function (done) {
-          _inquirer2.default.prompt({ 
-            type: "input", 
-            name: q.name, 
-            message: q.title || q.name, 
-            default: q.default, 
-            validate: function validate(answer) {
-              var res;
-
-
-              if (q.type) {
-                if (q.type === String || q.type == "string") res = true;else 
-                if (q.type === Number || q.type == "number") res = !isNaN(answer);else 
-                if (q.type === Boolean || q.type == "boolean") res = answer == "true" || answer == "false";} else 
-              {
-                res = true;}
-
-
-
-              return res;}, 
-
-            filter: function filter(answer) {
-              var res;
-
-
-              if (q.type === Number || q.type == "number") res = Number(answer);else 
-              if (q.type === Boolean || q.type == "boolean") res = Boolean(answer);else 
-              res = answer;
-
-
-              return res;} }, 
-
-          function (answers) {
-            res = answers[q.name];
-            done();});})();}
-
-
-
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      res = inquirer.input(q);
 
       this.answers[q.name] = res;
 
@@ -188,46 +138,8 @@ Generator = function () {
       var res;
 
 
-      if (this.responses.hasOwnProperty(q.name)) {
-        res = this.responses[q.name];} else 
-      {
-        (0, _deasync2.default)(function (done) {
-          _inquirer2.default.prompt({ 
-            type: "password", 
-            name: q.name, 
-            message: q.title || q.name, 
-            validate: function validate(answer) {
-              var res;
-
-
-              if (q.type) {
-                if (q.type === String || q.type == "string") res = true;else 
-                if (q.type === Number || q.type == "number") res = !isNaN(answer);else 
-                if (q.type === Boolean || q.type == "boolean") res = answer == "true" || answer == "false";} else 
-              {
-                res = true;}
-
-
-
-              return res;}, 
-
-            filter: function filter(answer) {
-              var res;
-
-
-              if (q.type === Number || q.type == "number") res = Number(answer);else 
-              if (q.type === Boolean || q.type == "boolean") res = Boolean(answer);else 
-              res = answer;
-
-
-              return res;} }, 
-
-          function (answers) {
-            res = answers[q.name];
-            done();});})();}
-
-
-
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      res = inquirer.password(q);
 
       this.answers[q.name] = res;
 
@@ -245,22 +157,8 @@ Generator = function () {
       var res;
 
 
-      if (this.responses.hasOwnProperty(q.name)) {
-        res = this.responses[q.name];} else 
-      {
-        (0, _deasync2.default)(function (done) {
-          _inquirer2.default.prompt({ 
-            type: "checkbox", 
-            name: q.name, 
-            message: q.title || q.name, 
-            choices: q.choices, 
-            default: q.default }, 
-          function (answers) {
-            res = answers[q.name];
-            done();});})();}
-
-
-
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      res = inquirer.checkbox(q);
 
       this.answers[q.name] = res;
 
@@ -278,22 +176,8 @@ Generator = function () {
       var res;
 
 
-      if (this.responses.hasOwnProperty(q.name)) {
-        res = this.responses[q.name];} else 
-      {
-        (0, _deasync2.default)(function (done) {
-          _inquirer2.default.prompt({ 
-            type: "list", 
-            name: q.name, 
-            message: q.title || q.name, 
-            choices: q.choices, 
-            default: q.default }, 
-          function (answers) {
-            res = answers[q.name];
-            done();});})();}
-
-
-
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      res = inquirer.list(q);
 
       this.answers[q.name] = res;
 

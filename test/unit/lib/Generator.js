@@ -118,7 +118,7 @@ describe("Generator", function() {
     });
 
     if (process.env.TRAVIS != "true") {
-      describe.skip("Without default answers", function() {
+      describe("Without default answers", function() {
         var gen;
 
         beforeEach(function() {

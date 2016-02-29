@@ -9,6 +9,8 @@ node_js:
   - 5.6
 os:
   - linux
+env:
+  - TRAVIS=true
 sudo: false
 before_install: npm install -g grunt-cli
 install: npm install
