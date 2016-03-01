@@ -1,7 +1,8 @@
 "use strict";Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _path = require("path");var _path2 = _interopRequireDefault(_path);var _justoInquirer = require("justo-inquirer");var _justoFs = require("justo-fs");var 
 
 
-fs = _interopRequireWildcard(_justoFs);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
+fs = _interopRequireWildcard(_justoFs);var _handlebars = require("handlebars");var 
+handlebars = _interopRequireWildcard(_handlebars);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
 
 
 var inquirer = new _justoInquirer.Inquirer();var 
@@ -226,7 +227,7 @@ Generator = function () {
 
 
     entry) {
-      var src, text, scope, dir, alias;for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
+      var src, dst, tmp, scope, alias;for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
 
 
       if (args.length == 1) {
@@ -243,21 +244,18 @@ Generator = function () {
       if (!src.exists()) throw new Error("The '" + src.path + "' file doesn't exist.");
 
 
-      dir = { 
-        path: process.cwd(), 
-        name: _path2.default.basename(process.cwd()), 
-        parent: _path2.default.dirname(process.cwd()) };
+      dst = new fs.Dir(this.dst, _path2.default.dirname(entry));
+      dst.create();
+      dst = alias ? new fs.File(this.dst, _path2.default.dirname(entry), alias) : new fs.File(this.dst, entry);
 
+      tmp = handlebars.compile(src.text);
+      dst.text = tmp({ 
+        dir: { 
+          path: process.cwd(), 
+          name: _path2.default.basename(process.cwd()), 
+          parent: _path2.default.dirname(process.cwd()) }, 
 
-      text = src.text;
-      text = eval("`" + text + "`");
-
-      new fs.Dir(this.dst, _path2.default.dirname(entry)).create();
-
-      if (alias) {
-        new fs.File(this.dst, _path2.default.dirname(entry), alias).text = text;} else 
-      {
-        new fs.File(this.dst, entry).text = text;}} }, { key: "mkdir", value: function mkdir(
+        scope: scope });} }, { key: "mkdir", value: function mkdir(
 
 
 
