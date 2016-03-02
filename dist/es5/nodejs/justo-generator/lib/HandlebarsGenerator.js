@@ -16,53 +16,51 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
     args)));
 
 
-    (function () {
-      _this.registerHelper("eq", function (x, y) {
-        return x == y;});
+    _this.registerHelper("eq", function (x, y) {
+      return x == y;});
 
 
-      _this.registerHelper("ne", function (x, y) {
-        return x != y;});
+    _this.registerHelper("ne", function (x, y) {
+      return x != y;});
 
 
-      _this.registerHelper("lt", function (x, y) {
-        return x < y;});
+    _this.registerHelper("lt", function (x, y) {
+      return x < y;});
 
 
-      _this.registerHelper("le", function (x, y) {
-        return x <= y;});
+    _this.registerHelper("le", function (x, y) {
+      return x <= y;});
 
 
-      _this.registerHelper("gt", function (x, y) {
-        return x > y;});
+    _this.registerHelper("gt", function (x, y) {
+      return x > y;});
 
 
-      _this.registerHelper("ge", function (x, y) {
-        return x >= y;});
+    _this.registerHelper("ge", function (x, y) {
+      return x >= y;});
 
 
-      _this.registerHelper("iif", function (cond, tr, fls) {
-        return cond ? tr : fls;});
+    _this.registerHelper("iif", function (cond, tr, fls) {
+      return cond ? tr : fls;});
 
 
-      _this.registerHelper("coalesce", function (args) {
-        var res;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+    _this.registerHelper("coalesce", function (args) {
+      var res;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
 
 
-          for (var _iterator = args[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var arg = _step.value;
-            if (arg !== undefined && arg !== null) {
-              res = arg;
-              break;}}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
+        for (var _iterator = args[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var arg = _step.value;
+          if (arg !== undefined && arg !== null) {
+            res = arg;
+            break;}}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
 
 
 
 
-        return res;});
+      return res;});
 
 
-      _this.registerHelper("include", function (file) {
-        return new fs.File(_this.src, file).text;});})();return _this;}_createClass(HandlebarsGenerator, [{ key: "template", value: function template(
-
+    _this.registerHelper("include", function (file) {
+      return new fs.File(_this.src, file).text;});return _this;}_createClass(HandlebarsGenerator, [{ key: "template", value: function template(
 
 
 
@@ -183,7 +181,17 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
     {
-      hbs.registerPartial.apply(hbs, arguments);} }, { key: "hasPartial", value: function hasPartial(
+      hbs.registerPartial.apply(hbs, arguments);} }, { key: "registerPartialFromFile", value: function registerPartialFromFile(
+
+
+
+
+
+
+
+
+    name, file) {
+      this.registerPartial(name, new fs.File(this.src, file).text);} }, { key: "hasPartial", value: function hasPartial(
 
 
 

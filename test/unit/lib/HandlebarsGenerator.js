@@ -51,6 +51,13 @@ describe("HandlebarsGenerator", function() {
       gen.registerPartial("mypartial", "<b>{{msg}}</b>");
       gen.template("handlebars/partial/partial.txt", {msg: "OK"});
       file(DST, "handlebars/partial/partial.txt").text.must.be.eq("<b>OK</b>");
+      gen.unregisterPartial("mypartial");
+    });
+
+    it("#registerPartialFromFile()", function() {
+      gen.registerPartialFromFile("mypartial", "handlebars/partial/mypartial.txt");
+      gen.template("handlebars/partial/partial.txt", {msg: "OK"});
+      file(DST, "handlebars/partial/partial.txt").text.must.be.eq("<b>OK</b>\n");
     });
 
     it("#unregisterPartial()", function() {
