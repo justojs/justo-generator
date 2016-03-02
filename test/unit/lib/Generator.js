@@ -233,31 +233,5 @@ describe("Generator", function() {
         gen.copy.must.raise(Error, ["static/unknown.txt"]);
       });
     });
-
-    describe("#template()", function() {
-      it("template(file)", function() {
-        var dst = file(DST.path, "dynamic/file.json");
-
-        gen.template("dynamic/file.json");
-        dst.must.exist();
-        dst.json.must.be.eq({name: "", version: "", author: "Justo Labs", homepage: ""});
-      });
-
-      it("template(file, scope)", function() {
-        var dst = file(DST.path, "dynamic/file.json");
-
-        gen.template("dynamic/file.json", {name: "test", version: "1.0.0"});
-        dst.must.exist();
-        dst.json.must.be.eq({name: "test", version: "1.0.0", author: "Justo Labs", homepage: ""});
-      });
-
-      it("template(file, alias, scope)", function() {
-        dst = file(DST.path, "dynamic/f.json");
-
-        gen.template("dynamic/file.json", "f.json", {name: "test", version: "1.0.0", author: "Justo Labs"});
-        dst.must.exist();
-        dst.json.must.be.eq({name: "test", version: "1.0.0", author: "Justo Labs", homepage: ""});
-      });
-    });
   });
 });

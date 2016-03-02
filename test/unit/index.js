@@ -1,9 +1,13 @@
 //imports
-const Generator = require("../../dist/es5/nodejs/justo-generator").Generator;
+const pkg = require("../../dist/es5/nodejs/justo-generator");
 
 //suite
 describe("index", function() {
-  it("export Generator", function() {
-    Generator.must.be.instanceOf(Function);
+  it("Generator", function() {
+    pkg.Generator.must.be.instanceOf(Function);
+  });
+
+  it("Handlebars", function() {
+    pkg.HandlebarsGenerator.must.be.instanceOf(Function);
   });
 });

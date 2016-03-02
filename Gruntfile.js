@@ -24,7 +24,8 @@ module.exports = function(grunt) {
       es5: {
         files: {
           "build/es5/index.js": "index.js",
-          "build/es5/lib/Generator.js": "lib/Generator.js"
+          "build/es5/lib/Generator.js": "lib/Generator.js",
+          "build/es5/lib/HandlebarsGenerator.js": "lib/HandlebarsGenerator.js"
         }
       }
     },

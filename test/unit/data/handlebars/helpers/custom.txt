@@ -1,0 +1,1 @@
+{{#if (test scope.x scope.y)}}OK{{/if}}

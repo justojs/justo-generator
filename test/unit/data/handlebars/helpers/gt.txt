@@ -1,0 +1,1 @@
+{{#if (gt scope.x scope.y)}}OK{{/if}}

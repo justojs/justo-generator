@@ -1,0 +1,1 @@
+{{#if (myhelper scope.x scope.y)}}OK{{/if}}
