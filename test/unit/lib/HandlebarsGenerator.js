@@ -119,6 +119,46 @@ describe("HandlebarsGenerator", function() {
       gen.hasHelper("test").must.be.eq(false);
     });
 
+    describe("in", function() {
+      var dst;
+
+      beforeEach(function() {
+        dst = file(DST, "handlebars/helpers/in.txt");
+      });
+
+      it("in val array : true", function() {
+        gen.template("handlebars/helpers/in.txt", {x: 2, y: [1, 2, 3]});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("in x y : false", function() {
+        gen.template("handlebars/helpers/in.txt", {x: 0, y: [3, 2, 1]});
+        dst.must.exist();
+        dst.text.must.be.eq("\n");
+      });
+    });
+
+    describe("nin", function() {
+      var dst;
+
+      beforeEach(function() {
+        dst = file(DST, "handlebars/helpers/nin.txt");
+      });
+
+      it("in val array : true", function() {
+        gen.template("handlebars/helpers/nin.txt", {x: 0, y: [1, 2, 3]});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("in x y : false", function() {
+        gen.template("handlebars/helpers/nin.txt", {x: 2, y: [3, 2, 1]});
+        dst.must.exist();
+        dst.text.must.be.eq("\n");
+      });
+    });
+
     describe("eq", function() {
       var dst;
 

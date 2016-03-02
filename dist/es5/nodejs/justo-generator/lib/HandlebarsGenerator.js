@@ -40,6 +40,14 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
       return x >= y;});
 
 
+    _this.registerHelper("in", function (value, coll) {
+      return coll.indexOf(value) >= 0;});
+
+
+    _this.registerHelper("nin", function (value, coll) {
+      return coll.indexOf(value) < 0;});
+
+
     _this.registerHelper("iif", function (cond, tr, fls) {
       return cond ? tr : fls;});
 

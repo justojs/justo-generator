@@ -1,0 +1,1 @@
+{{#if (nin scope.x scope.y)}}OK{{/if}}
