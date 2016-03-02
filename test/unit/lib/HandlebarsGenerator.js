@@ -265,6 +265,20 @@ describe("HandlebarsGenerator", function() {
         dst.text.must.be.eq("VALUE1\n");
       });
     });
+
+    describe("include", function() {
+      var dst;
+
+      beforeEach(function() {
+        dst = file(DST, "handlebars/helpers/include.txt");
+      });
+
+      it("include file", function() {
+        gen.template("handlebars/helpers/include.txt");
+        dst.must.exist();
+        dst.text.must.be.eq("Hello Justo\nThis is an example\n");
+      });
+    });
   });
 
 });

@@ -1,0 +1,1 @@
+Hello {{include "handlebars/helpers/include.to.include.txt"}}This is an example
