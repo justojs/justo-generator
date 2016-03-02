@@ -16,6 +16,14 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
     args)));
 
 
+    _this.registerHelper("true", function (x) {
+      return [true, "true", "yes"].indexOf(x) >= 0;});
+
+
+    _this.registerHelper("false", function (x) {
+      return [false, "false", "no"].indexOf(x) >= 0;});
+
+
     _this.registerHelper("eq", function (x, y) {
       return x == y;});
 

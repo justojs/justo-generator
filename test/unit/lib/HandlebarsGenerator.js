@@ -119,6 +119,70 @@ describe("HandlebarsGenerator", function() {
       gen.hasHelper("test").must.be.eq(false);
     });
 
+    describe("true", function() {
+      var dst;
+
+      beforeEach(function() {
+        dst = file(DST, "handlebars/helpers/true.txt");
+      });
+
+      it("true true", function() {
+        gen.template("handlebars/helpers/true.txt", {x: true});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("true 'true'", function() {
+        gen.template("handlebars/helpers/true.txt", {x: "true"});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("true 'yes'", function() {
+        gen.template("handlebars/helpers/true.txt", {x: "yes"});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("true false", function() {
+        gen.template("handlebars/helpers/true.txt", {x: false});
+        dst.must.exist();
+        dst.text.must.be.eq("\n");
+      });
+    });
+
+    describe("false", function() {
+      var dst;
+
+      beforeEach(function() {
+        dst = file(DST, "handlebars/helpers/false.txt");
+      });
+
+      it("false false", function() {
+        gen.template("handlebars/helpers/false.txt", {x: false});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("false 'false'", function() {
+        gen.template("handlebars/helpers/false.txt", {x: "false"});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("false 'no'", function() {
+        gen.template("handlebars/helpers/false.txt", {x: "no"});
+        dst.must.exist();
+        dst.text.must.be.eq("OK\n");
+      });
+
+      it("false true", function() {
+        gen.template("handlebars/helpers/false.txt", {x: true});
+        dst.must.exist();
+        dst.text.must.be.eq("\n");
+      });
+    });
+
     describe("in", function() {
       var dst;
 
