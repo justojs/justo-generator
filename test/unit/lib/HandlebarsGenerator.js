@@ -119,6 +119,44 @@ describe("HandlebarsGenerator", function() {
       gen.hasHelper("test").must.be.eq(false);
     });
 
+    describe("http", function() {
+      var dst;
+
+      beforeEach(function() {
+        dst = file(DST, "handlebars/helpers/http.txt");
+      });
+
+      it("http starting with http:", function() {
+        gen.template("handlebars/helpers/http.txt", {url: "http://justojs.org"});
+        dst.must.exist();
+        dst.text.must.be.eq("http://justojs.org\n");
+      });
+
+      it("http starting with http without :", function() {
+        gen.template("handlebars/helpers/http.txt", {url: "httpjustojs.org"});
+        dst.must.exist();
+        dst.text.must.be.eq("http://httpjustojs.org\n");
+      });
+
+      it("http starting with https:", function() {
+        gen.template("handlebars/helpers/http.txt", {url: "https://justojs.org"});
+        dst.must.exist();
+        dst.text.must.be.eq("https://justojs.org\n");
+      });
+
+      it("http starting with https without :", function() {
+        gen.template("handlebars/helpers/http.txt", {url: "httpsjustojs.org"});
+        dst.must.exist();
+        dst.text.must.be.eq("http://httpsjustojs.org\n");
+      });
+
+      it("http not starting with http[s]:", function() {
+        gen.template("handlebars/helpers/http.txt", {url: "justojs.org"});
+        dst.must.exist();
+        dst.text.must.be.eq("http://justojs.org\n");
+      });
+    });
+
     describe("true", function() {
       var dst;
 

@@ -16,6 +16,11 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
     args)));
 
 
+    _this.registerHelper("http", function (url) {
+      if (/^http[s]?:/.test(url)) return url;else 
+      return "http://" + url;});
+
+
     _this.registerHelper("true", function (x) {
       return [true, "true", "yes"].indexOf(x) >= 0;});
 
