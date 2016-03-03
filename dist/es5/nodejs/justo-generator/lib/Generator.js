@@ -218,7 +218,7 @@ Generator = function () {
 
 
     cond) {for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
-      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "template", value: function template(
+      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "template", value: function template() 
 
 
 
@@ -233,43 +233,16 @@ Generator = function () {
 
 
 
-    entry) {
-      var src, dst, tmp, scope, alias;for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
 
 
-      if (args.length == 1) {
-        if (typeof args[0] == "string") alias = args[0];else 
-        scope = args[0];} else 
-      if (args.length >= 2) {
-        alias = args[0];scope = args[1];}
-
-
-      if (!scope) scope = {};
-
-
-      src = new fs.File(this.base, entry);
-      if (!src.exists()) throw new Error("The '" + src.path + "' file doesn't exist.");
-
-
-      dst = new fs.Dir(this.dst, _path2.default.dirname(entry));
-      dst.create();
-      dst = alias ? new fs.File(this.dst, _path2.default.dirname(entry), alias) : new fs.File(this.dst, entry);
-
-      tmp = hbs.compile(src.text);
-      dst.text = tmp({ 
-        dir: { 
-          path: process.cwd(), 
-          name: _path2.default.basename(process.cwd()), 
-          parent: _path2.default.dirname(process.cwd()) }, 
-
-        scope: scope });} }, { key: "templateIf", value: function templateIf(
+    {
+      throw new Error("Abstract method.");} }, { key: "templateIf", value: function templateIf(
 
 
 
 
 
-
-    cond) {for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
+    cond) {for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
       if (isTrue(cond)) this.template.apply(this, args);} }, { key: "mkdir", value: function mkdir(
 
 
