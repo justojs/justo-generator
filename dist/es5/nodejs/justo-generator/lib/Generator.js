@@ -210,8 +210,15 @@ Generator = function () {
       if (name) {
         fs.copy(entry, _path2.default.join(this.dst, _path2.default.dirname(src), name));} else 
       {
-        fs.copy(entry, _path2.default.join(this.dst, src));}} }, { key: "template", value: function template(
+        fs.copy(entry, _path2.default.join(this.dst, src));}} }, { key: "copyIf", value: function copyIf(
 
+
+
+
+
+
+    cond) {for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
+      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "template", value: function template(
 
 
 
@@ -227,7 +234,7 @@ Generator = function () {
 
 
     entry) {
-      var src, dst, tmp, scope, alias;for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
+      var src, dst, tmp, scope, alias;for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
 
 
       if (args.length == 1) {
@@ -255,8 +262,15 @@ Generator = function () {
           name: _path2.default.basename(process.cwd()), 
           parent: _path2.default.dirname(process.cwd()) }, 
 
-        scope: scope });} }, { key: "mkdir", value: function mkdir(
+        scope: scope });} }, { key: "templateIf", value: function templateIf(
 
+
+
+
+
+
+    cond) {for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
+      if (isTrue(cond)) this.template.apply(this, args);} }, { key: "mkdir", value: function mkdir(
 
 
 
@@ -270,3 +284,16 @@ Generator = function () {
       if (!dir.exists()) {
         if (!dir.create()) {
           throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");}}} }, { key: "base", get: function get() {return this.src;} }, { key: "help", get: function get() {return {};} }]);return Generator;}();exports.default = Generator;
+
+
+
+
+
+
+
+
+
+
+
+function isTrue(cond) {
+  return [true, "true", "yes"].indexOf(cond) >= 0;}
