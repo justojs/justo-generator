@@ -63,6 +63,42 @@ describe("Generator", function() {
   });
 
   describe("Inquire", function() {
+    describe("With answer using parameter", function() {
+      var gen;
+
+      it("confirm() - parameter is true as string", function() {
+        gen = new Generator({name: "test", src: "test/unit/data/"}, {
+          test: "true"
+        });
+
+        gen.confirm({name: "test", title: "Testing", default: false}).must.be.eq(true);
+      });
+
+      it("confirm() - parameter is yes", function() {
+        gen = new Generator({name: "test", src: "test/unit/data/"}, {
+          test: "yes"
+        });
+
+        gen.confirm({name: "test", title: "Testing", default: false}).must.be.eq(true);
+      });
+
+      it("confirm() - parameter is true as boolean", function() {
+        gen = new Generator({name: "test", src: "test/unit/data/"}, {
+          test: true
+        });
+
+        gen.confirm({name: "test", title: "Testing", default: false}).must.be.eq(true);
+      });
+
+      it("confirm() - parameter is false", function() {
+        gen = new Generator({name: "test", src: "test/unit/data/"}, {
+          test: "false"
+        });
+
+        gen.confirm({name: "test", title: "Testing", default: false}).must.be.eq(false);
+      });
+    });
+
     describe("With default answers", function() {
       var gen;
 

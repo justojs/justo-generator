@@ -101,7 +101,7 @@ Generator = function () {
       var res;
 
 
-      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      if (this.responses.hasOwnProperty(q.name)) res = [true, "true", "yes"].indexOf(this.responses[q.name]) >= 0;else 
       res = inquirer.confirm(q);
 
       this.answers[q.name] = res;
