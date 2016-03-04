@@ -256,9 +256,16 @@ Generator = function () {
 
       if (!dir.exists()) {
         if (!dir.create()) {
-          throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");}}} }, { key: "base", get: function get() {return this.src;} }, { key: "help", get: function get() {return {};} }]);return Generator;}();exports.default = Generator;
+          throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");}}} }, { key: "mkdirIf", value: function mkdirIf(
 
 
+
+
+
+
+
+    cond) {for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
+      if (isTrue(cond)) this.mkdir.apply(this, args);} }, { key: "base", get: function get() {return this.src;} }, { key: "help", get: function get() {return {};} }]);return Generator;}();exports.default = Generator;
 
 
 
