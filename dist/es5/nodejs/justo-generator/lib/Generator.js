@@ -66,6 +66,15 @@ Generator = function () {
 
 
 
+    answers) {} }, { key: "pregenerate", value: function pregenerate(
+
+
+
+
+
+
+
+
     answers) {} }, { key: "generate", value: function generate(
 
 
@@ -82,11 +91,20 @@ Generator = function () {
 
 
 
+
+
+
     {
+      var snippet;
+
+
       this.answers = Object.assign({}, this.responses);
+
+
       this.init();
       this.prompt(this.answers);
-      this.generate(this.answers);
+      this.pregenerate(this.answers);
+      if (snippet = this.generate(this.answers)) console.log(snippet);
       this.fin();} }, { key: "confirm", value: function confirm(
 
 
