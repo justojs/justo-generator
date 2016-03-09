@@ -319,7 +319,7 @@ Generator = function () {
       args = opts.args;
 
 
-      res = _child_process2.default.spawnSync(cmd, args, { cwd: opts.wd || ".", shell: !!opts.shell });
+      res = _child_process2.default.spawnSync(cmd, args, { cwd: opts.wd || this.dst, shell: !!opts.shell });
 
 
       return res.status !== null ? res.status : 1;} }, { key: "cliIf", value: function cliIf(
