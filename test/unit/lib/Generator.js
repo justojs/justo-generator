@@ -226,6 +226,16 @@ describe("Generator", function() {
       DST.remove();
     });
 
+    describe("#cli()", function() {
+      it("cli() - existing command", function() {
+        gen.cli({cmd: "node", args: ["-e", "console.log('bonjour')"], wd: "."}).must.be.eq(0);
+      });
+
+      it("cli() - nonexisting command", function() {
+        gen.cli({cmd: "unknowncommand", args: [], wd: "."}).must.not.be.eq(0);
+      });
+    });
+
     describe("#mkdir()", function() {
       it("mkdir() - dir not existing", function() {
         gen.mkdir("test1");
@@ -267,6 +277,23 @@ describe("Generator", function() {
 
       it("copy(entry) - entry not existing", function() {
         gen.copy.must.raise(Error, ["static/unknown.txt"]);
+      });
+    });
+
+    describe("#remove()", function() {
+      beforeEach(function() {
+        gen.copy("static", "stat");
+      });
+
+      it("remove() - entry existing", function() {
+        dir(DST.path, "stat").must.exist();
+        gen.remove("stat");
+        dir(DST.path, "stat").must.not.exist();
+      });
+
+      it("remove() - entry existing", function() {
+        gen.remove("unknownentry");
+        dir(DST.path, "unknownentry").must.not.exist();
       });
     });
   });
