@@ -49,7 +49,7 @@ describe("HandlebarsGenerator", function() {
 
   describe("#templateAsString()", function() {
     it("templateAsString(file)", function() {
-      JSON.parse(gen.templateAsString(DATA + "/handlebars/file.json")).must.be.eq({
+      JSON.parse(gen.templateAsString("/handlebars/file.json")).must.be.eq({
         name: "",
         version: "",
         author: "Justo Labs",
@@ -58,7 +58,7 @@ describe("HandlebarsGenerator", function() {
     });
 
     it("templateAsString(file, scope)", function() {
-      JSON.parse(gen.templateAsString(DATA + "/handlebars/file.json", {name: "test", version: "1.0.0"})).must.be.eq({
+      JSON.parse(gen.templateAsString("/handlebars/file.json", {name: "test", version: "1.0.0"})).must.be.eq({
         name: "test",
         version: "1.0.0",
         author: "Justo Labs",
@@ -68,7 +68,7 @@ describe("HandlebarsGenerator", function() {
 
     it("templateAsString(file, scope, opts)", function() {
       gen.templateAsString(
-        DATA + "/handlebars/helpers/myhelper.hbs",
+        "/handlebars/helpers/myhelper.hbs",
         {x: 1, y: 1},
         {
           helpers: {

@@ -48,7 +48,7 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
     entry) {
-      var src, dst, tmp, opts, scope, alias;for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
+      var dst, opts, scope, alias;for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
 
 
       if (args.length == 1) {
@@ -66,22 +66,19 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
 
-      src = new fs.File(this.base, entry);
-
-
       dst = new fs.Dir(this.dst, _path2.default.dirname(entry));
       dst.create();
       dst = alias ? new fs.File(this.dst, _path2.default.dirname(entry), alias) : new fs.File(this.dst, entry);
 
 
-      dst.text = this.templateAsString(src.path, scope, opts);} }, { key: "templateAsString", value: function templateAsString(
+      dst.text = this.templateAsString(entry, scope, opts);} }, { key: "templateAsString", value: function templateAsString(
 
 
 
 
 
     file, scope, opts) {
-      return hbs.renderFile(file, { 
+      return hbs.renderFile(_path2.default.join(this.src, file), { 
         dir: { 
           path: process.cwd(), 
           name: _path2.default.basename(process.cwd()), 
