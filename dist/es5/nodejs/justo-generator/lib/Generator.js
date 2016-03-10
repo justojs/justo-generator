@@ -236,7 +236,24 @@ Generator = function () {
 
 
     cond) {for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
-      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "remove", value: function remove() 
+      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "read", value: function read(
+
+
+
+
+
+
+
+
+    src) {
+
+      src = new fs.File(this.base, src);
+      if (!src.exists()) {
+        throw new Error("The '" + src.path + "' file doesn't exist.");}
+
+
+
+      return src.text;} }, { key: "remove", value: function remove() 
 
 
 

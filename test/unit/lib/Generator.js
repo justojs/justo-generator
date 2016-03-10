@@ -250,6 +250,16 @@ describe("Generator", function() {
       });
     });
 
+    describe("#read()", function() {
+      it("read(file)", function() {
+        gen.read("static/file.txt").must.be.eq("File content.\n");
+      });
+
+      it("read(file) - unknown file", function() {
+        gen.read.bind(gen).must.raise(Error, ["static/unknown.txt"]);
+      });
+    });
+
     describe("#copy()", function() {
       it("copy(file) - file existing", function() {
         gen.copy("static/file.json");
