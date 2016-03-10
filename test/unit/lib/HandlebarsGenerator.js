@@ -8,12 +8,13 @@ const HandlebarsGenerator = require("../../../dist/es5/nodejs/justo-generator").
 //suite
 describe("HandlebarsGenerator", function() {
   var gen, DST, DST_DIR;
+  const DATA = "test/unit/data/";
 
   beforeEach(function() {
     DST_DIR = new fs.Dir.createTmpDir();
     DST = DST_DIR.path;
 
-    gen = new HandlebarsGenerator({name: "test", src: "test/unit/data/", dst: DST});
+    gen = new HandlebarsGenerator({name: "test", src: DATA, dst: DST});
   });
 
   afterEach(function() {
@@ -43,6 +44,40 @@ describe("HandlebarsGenerator", function() {
       gen.template("handlebars/file.json", "f.json", {name: "test", version: "1.0.0", author: "Justo Labs"});
       dst.must.exist();
       dst.json.must.be.eq({name: "test", version: "1.0.0", author: "Justo Labs", homepage: ""});
+    });
+  });
+
+  describe("#templateAsString()", function() {
+    it("templateAsString(template)", function() {
+      JSON.parse(gen.templateAsString(file(DATA, "handlebars/file.json").text)).must.be.eq({
+        name: "",
+        version: "",
+        author: "Justo Labs",
+        homepage: ""
+      });
+    });
+
+    it("templateAsString(template, scope)", function() {
+      JSON.parse(gen.templateAsString(file(DATA, "handlebars/file.json").text, {name: "test", version: "1.0.0"})).must.be.eq({
+        name: "test",
+        version: "1.0.0",
+        author: "Justo Labs",
+        homepage: ""
+      });
+    });
+
+    it("templateAsString(template, scope, opts)", function() {
+      gen.templateAsString(
+        "{{#if (myhelper scope.x scope.y)}}OK{{/if}}",
+        {x: 1, y: 1},
+        {
+          helpers: {
+            myhelper: function(x, y) {
+              return (x == y);
+            }
+          }
+        }
+      ).must.be.eq("OK");
     });
   });
 
@@ -89,11 +124,11 @@ describe("HandlebarsGenerator", function() {
         return (x == y);
       });
 
-      gen.template("handlebars/helpers/myhelper.txt", {x: 1, y: 1});
-      file(DST, "handlebars/helpers/myhelper.txt").text.must.be.eq("OK\n");
+      gen.template("handlebars/helpers/myhelper.hbs", {x: 1, y: 1});
+      file(DST, "handlebars/helpers/myhelper.hbs").text.must.be.eq("OK\n");
 
-      gen.template("handlebars/helpers/myhelper.txt", {x: 1, y: 2});
-      file(DST, "handlebars/helpers/myhelper.txt").text.must.be.eq("\n");
+      gen.template("handlebars/helpers/myhelper.hbs", {x: 1, y: 2});
+      file(DST, "handlebars/helpers/myhelper.hbs").text.must.be.eq("\n");
     });
 
     it("#unregisterHelper()", function() {
@@ -101,329 +136,33 @@ describe("HandlebarsGenerator", function() {
         return (x == y);
       });
 
-      gen.template("handlebars/helpers/myhelper.txt", {x: 1, y: 1});
-      file(DST, "handlebars/helpers/myhelper.txt").text.must.be.eq("OK\n");
+      gen.template("handlebars/helpers/myhelper.hbs", {x: 1, y: 1});
+      file(DST, "handlebars/helpers/myhelper.hbs").text.must.be.eq("OK\n");
 
       gen.unregisterHelper("myhelper");
-      gen.template.bind(gen).must.raise(Error, ["handlebars/helpers/myhelper.txt", {x: 1, y: 1}]);
+      gen.template.bind(gen).must.raise(Error, ["handlebars/helpers/myhelper.hbs", {x: 1, y: 1}]);
     });
 
     it("#template(file, scope, {helpers})", function() {
       gen.template(
-        "handlebars/helpers/custom.txt",
+        "handlebars/helpers/custom.hbs",
         {x: 1, y: 1},
         {helpers: {test: function(x, y) { return (x == y); }}}
       );
 
-      file(DST, "handlebars/helpers/custom.txt").text.must.be.eq("OK\n");
+      file(DST, "handlebars/helpers/custom.hbs").text.must.be.eq("OK\n");
       gen.hasHelper("test").must.be.eq(false);
-    });
-
-    describe("http", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/http.txt");
-      });
-
-      it("http starting with http:", function() {
-        gen.template("handlebars/helpers/http.txt", {url: "http://justojs.org"});
-        dst.must.exist();
-        dst.text.must.be.eq("http://justojs.org\n");
-      });
-
-      it("http starting with http without :", function() {
-        gen.template("handlebars/helpers/http.txt", {url: "httpjustojs.org"});
-        dst.must.exist();
-        dst.text.must.be.eq("http://httpjustojs.org\n");
-      });
-
-      it("http starting with https:", function() {
-        gen.template("handlebars/helpers/http.txt", {url: "https://justojs.org"});
-        dst.must.exist();
-        dst.text.must.be.eq("https://justojs.org\n");
-      });
-
-      it("http starting with https without :", function() {
-        gen.template("handlebars/helpers/http.txt", {url: "httpsjustojs.org"});
-        dst.must.exist();
-        dst.text.must.be.eq("http://httpsjustojs.org\n");
-      });
-
-      it("http not starting with http[s]:", function() {
-        gen.template("handlebars/helpers/http.txt", {url: "justojs.org"});
-        dst.must.exist();
-        dst.text.must.be.eq("http://justojs.org\n");
-      });
-    });
-
-    describe("true", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/true.txt");
-      });
-
-      it("true true", function() {
-        gen.template("handlebars/helpers/true.txt", {x: true});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("true 'true'", function() {
-        gen.template("handlebars/helpers/true.txt", {x: "true"});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("true 'yes'", function() {
-        gen.template("handlebars/helpers/true.txt", {x: "yes"});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("true false", function() {
-        gen.template("handlebars/helpers/true.txt", {x: false});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("false", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/false.txt");
-      });
-
-      it("false false", function() {
-        gen.template("handlebars/helpers/false.txt", {x: false});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("false 'false'", function() {
-        gen.template("handlebars/helpers/false.txt", {x: "false"});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("false 'no'", function() {
-        gen.template("handlebars/helpers/false.txt", {x: "no"});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("false true", function() {
-        gen.template("handlebars/helpers/false.txt", {x: true});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("in", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/in.txt");
-      });
-
-      it("in val array : true", function() {
-        gen.template("handlebars/helpers/in.txt", {x: 2, y: [1, 2, 3]});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("in x y : false", function() {
-        gen.template("handlebars/helpers/in.txt", {x: 0, y: [3, 2, 1]});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("nin", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/nin.txt");
-      });
-
-      it("in val array : true", function() {
-        gen.template("handlebars/helpers/nin.txt", {x: 0, y: [1, 2, 3]});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("in x y : false", function() {
-        gen.template("handlebars/helpers/nin.txt", {x: 2, y: [3, 2, 1]});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("eq", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/eq.txt");
-      });
-
-      it("eq x y : true", function() {
-        gen.template("handlebars/helpers/eq.txt", {x: 1, y: 1});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("eq x y : false", function() {
-        gen.template("handlebars/helpers/eq.txt", {x: 1, y: 2});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("ne", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/ne.txt");
-      });
-
-      it("ne x y : true", function() {
-        gen.template("handlebars/helpers/ne.txt", {x: 1, y: 2});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("ne x y : false", function() {
-        gen.template("handlebars/helpers/ne.txt", {x: 1, y: 1});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("lt", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/lt.txt");
-      });
-
-      it("lt x y : true", function() {
-        gen.template("handlebars/helpers/lt.txt", {x: 1, y: 2});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("lt x y : false", function() {
-        gen.template("handlebars/helpers/lt.txt", {x: 1, y: 1});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("le", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/le.txt");
-      });
-
-      it("lt x y : true", function() {
-        gen.template("handlebars/helpers/le.txt", {x: 1, y: 2});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("le x y : false", function() {
-        gen.template("handlebars/helpers/le.txt", {x: 1, y: 0});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("gt", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/gt.txt");
-      });
-
-      it("gt x y : true", function() {
-        gen.template("handlebars/helpers/gt.txt", {x: 1, y: 0});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("gt x y : false", function() {
-        gen.template("handlebars/helpers/gt.txt", {x: 1, y: 1});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("ge", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/ge.txt");
-      });
-
-      it("ge x y : true", function() {
-        gen.template("handlebars/helpers/ge.txt", {x: 1, y: 1});
-        dst.must.exist();
-        dst.text.must.be.eq("OK\n");
-      });
-
-      it("ge x y : false", function() {
-        gen.template("handlebars/helpers/ge.txt", {x: 1, y: 2});
-        dst.must.exist();
-        dst.text.must.be.eq("\n");
-      });
-    });
-
-    describe("iif", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/iif.txt");
-      });
-
-      it("iif true x y", function() {
-        gen.template("handlebars/helpers/iif.txt", {cond: true});
-        dst.must.exist();
-        dst.text.must.be.eq("TRUE\n");
-      });
-
-      it("iif false x y", function() {
-        gen.template("handlebars/helpers/iif.txt", {cond: false});
-        dst.must.exist();
-        dst.text.must.be.eq("FALSE\n");
-      });
-    });
-
-    describe("coalesce", function() {
-      var dst;
-
-      beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/coalesce.txt");
-      });
-
-      it("coalesce array", function() {
-        gen.template("handlebars/helpers/coalesce.txt", {values: [undefined, null, "VALUE1", "VALUE2"]});
-        dst.must.exist();
-        dst.text.must.be.eq("VALUE1\n");
-      });
     });
 
     describe("include", function() {
       var dst;
 
       beforeEach(function() {
-        dst = file(DST, "handlebars/helpers/include.txt");
+        dst = file(DST, "handlebars/helpers/include.hbs");
       });
 
       it("include file", function() {
-        gen.template("handlebars/helpers/include.txt");
+        gen.template("handlebars/helpers/include.hbs");
         dst.must.exist();
         dst.text.must.be.eq("Hello Justo\nThis is an example\n");
       });

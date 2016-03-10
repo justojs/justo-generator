@@ -1,6 +1,6 @@
 {
   "name": "justo-generator",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Generator support.",
   "homepage": "http://www.justojs.org",
   "author": {
@@ -32,7 +32,7 @@
     "npm": ">= 3.0.0"
   },
   "dependencies": {
-    "handlebars": "*",
+    "justo-handlebars": "*",
     "justo-inquirer": "*",
     "justo-fs": "*"
   },

@@ -2,8 +2,7 @@
 
 
 
-fs = _interopRequireWildcard(_justoFs);var _handlebars = require("handlebars");var 
-hbs = _interopRequireWildcard(_handlebars);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
+fs = _interopRequireWildcard(_justoFs);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
 
 
 var inquirer = new _justoInquirer.Inquirer();var 
@@ -281,7 +280,19 @@ Generator = function () {
 
 
     cond) {for (var _len4 = arguments.length, args = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {args[_key4 - 1] = arguments[_key4];}
-      if (isTrue(cond)) this.template.apply(this, args);} }, { key: "mkdir", value: function mkdir(
+      if (isTrue(cond)) this.template.apply(this, args);} }, { key: "templateAsString", value: function templateAsString() 
+
+
+
+
+
+
+
+
+
+
+    {
+      throw new Error("Abstract method.");} }, { key: "mkdir", value: function mkdir(
 
 
 

@@ -1,1 +1,0 @@
-{{#if (lt scope.x scope.y)}}OK{{/if}}

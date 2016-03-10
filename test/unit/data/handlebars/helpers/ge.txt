@@ -1,1 +1,0 @@
-{{#if (ge scope.x scope.y)}}OK{{/if}}
