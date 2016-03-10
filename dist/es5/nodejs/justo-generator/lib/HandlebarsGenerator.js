@@ -67,7 +67,6 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
       src = new fs.File(this.base, entry);
-      if (!src.exists()) throw new Error("The '" + src.path + "' file doesn't exist.");
 
 
       dst = new fs.Dir(this.dst, _path2.default.dirname(entry));
@@ -75,14 +74,14 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
       dst = alias ? new fs.File(this.dst, _path2.default.dirname(entry), alias) : new fs.File(this.dst, entry);
 
 
-      dst.text = this.templateAsString(src.text, scope, opts);} }, { key: "templateAsString", value: function templateAsString(
+      dst.text = this.templateAsString(src.path, scope, opts);} }, { key: "templateAsString", value: function templateAsString(
 
 
 
 
 
-    text, scope, opts) {
-      return hbs.renderString(text, { 
+    file, scope, opts) {
+      return hbs.renderFile(file, { 
         dir: { 
           path: process.cwd(), 
           name: _path2.default.basename(process.cwd()), 

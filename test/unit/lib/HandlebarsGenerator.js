@@ -48,8 +48,8 @@ describe("HandlebarsGenerator", function() {
   });
 
   describe("#templateAsString()", function() {
-    it("templateAsString(template)", function() {
-      JSON.parse(gen.templateAsString(file(DATA, "handlebars/file.json").text)).must.be.eq({
+    it("templateAsString(file)", function() {
+      JSON.parse(gen.templateAsString(DATA + "/handlebars/file.json")).must.be.eq({
         name: "",
         version: "",
         author: "Justo Labs",
@@ -57,8 +57,8 @@ describe("HandlebarsGenerator", function() {
       });
     });
 
-    it("templateAsString(template, scope)", function() {
-      JSON.parse(gen.templateAsString(file(DATA, "handlebars/file.json").text, {name: "test", version: "1.0.0"})).must.be.eq({
+    it("templateAsString(file, scope)", function() {
+      JSON.parse(gen.templateAsString(DATA + "/handlebars/file.json", {name: "test", version: "1.0.0"})).must.be.eq({
         name: "test",
         version: "1.0.0",
         author: "Justo Labs",
@@ -66,9 +66,9 @@ describe("HandlebarsGenerator", function() {
       });
     });
 
-    it("templateAsString(template, scope, opts)", function() {
+    it("templateAsString(file, scope, opts)", function() {
       gen.templateAsString(
-        "{{#if (myhelper scope.x scope.y)}}OK{{/if}}",
+        DATA + "/handlebars/helpers/myhelper.hbs",
         {x: 1, y: 1},
         {
           helpers: {
@@ -77,7 +77,7 @@ describe("HandlebarsGenerator", function() {
             }
           }
         }
-      ).must.be.eq("OK");
+      ).must.be.eq("OK\n");
     });
   });
 
