@@ -50,6 +50,24 @@ Generator = function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {} }, { key: "fin", value: function fin() 
 
 
@@ -120,7 +138,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = [true, "true", "yes"].indexOf(this.responses[q.name]) >= 0;else 
-      res = inquirer.confirm(q);
+      res = inquirer.confirm(Object.assign({ title: getTitle(this.params[q.name]) }, q));
 
       this.answers[q.name] = res;
 
@@ -139,7 +157,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.input(q);
+      res = inquirer.input(Object.assign({ title: getTitle(this.params[q.name]) }, q));
 
       this.answers[q.name] = res;
 
@@ -158,7 +176,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.password(q);
+      res = inquirer.password(Object.assign({ title: getTitle(this.params[q.name]) }, q));
 
       this.answers[q.name] = res;
 
@@ -177,7 +195,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.checkbox(q);
+      res = inquirer.checkbox(Object.assign({ title: getTitle(this.params[q.name]), choices: getChoices(this.params[q.name]) }, q));
 
       this.answers[q.name] = res;
 
@@ -196,7 +214,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.list(q);
+      res = inquirer.list(Object.assign({ title: getTitle(this.params[q.name]), choices: getChoices(this.params[q.name]) }, q));
 
       this.answers[q.name] = res;
 
@@ -357,7 +375,7 @@ Generator = function () {
 
 
     cond) {for (var _len6 = arguments.length, args = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {args[_key6 - 1] = arguments[_key6];}
-      if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "base", get: function get() {return this.src;} }, { key: "help", get: function get() {return {};} }]);return Generator;}();exports.default = Generator;
+      if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "base", get: function get() {return this.src;} }, { key: "desc", get: function get() {return "";} }, { key: "params", get: function get() {return {};} }, { key: "help", get: function get() {return { desc: this.desc, params: this.params };} }]);return Generator;}();exports.default = Generator;
 
 
 
@@ -369,3 +387,21 @@ Generator = function () {
 
 function isTrue(cond) {
   return [true, "true", "yes"].indexOf(cond) >= 0;}
+
+
+
+
+
+
+
+function getTitle(q) {
+  return q ? q.title : undefined;}
+
+
+
+
+
+
+
+function getChoices(q) {
+  return q ? q.choices : undefined;}

@@ -209,6 +209,90 @@ describe("Generator", function() {
           gen.answers.list.must.be.eq("two");
         });
       });
+
+      describe("With default title and choices", function() {
+        var gen;
+
+        function TestGenerator() {
+          Generator.call(this);
+        }
+
+        require("util").inherits(TestGenerator, Generator);
+
+        Object.defineProperty(TestGenerator.prototype, "params", {get: function() {
+          return {
+            confirm: {
+              title: "Confirm (response: y)?"
+            },
+            input: {
+              title: "Username (response: elvisc)"
+            },
+            password: {
+              title: "Password (response: costello)"
+            },
+            checkbox: {
+              title: "Check (response: one, three)",
+              choices: ["one", "two", "three"]
+            },
+            list: {
+              title: "List (response: two)",
+              choices: ["one", "two", "three"]
+            }
+          };
+        }});
+
+        beforeEach(function() {
+          gen = new TestGenerator();
+        });
+
+        it("confirm()", function() {
+          var res;
+
+          res = gen.confirm({name: "confirm", default: false});
+          res.must.be.eq(true);
+          gen.answers.confirm.must.be.eq(true);
+        });
+
+        it("input()", function() {
+          var res;
+
+          res = gen.input({name: "input", default: "ecostello"});
+          res.must.be.eq("elvisc");
+          gen.answers.input.must.be.eq("elvisc");
+        });
+
+        it("password()", function() {
+          var res;
+
+          res = gen.password({name: "password"});
+          res.must.be.eq("costello");
+          gen.answers.password.must.be.eq("costello");
+        });
+
+        it("#checkbox()", function() {
+          var res;
+
+          res = gen.checkbox({name: "checkbox"});
+          res.must.be.eq(["one", "three"]);
+          gen.answers.checkbox.must.be.eq(["one", "three"]);
+        });
+
+        it("#checkbox() - none checked", function() {
+          var res;
+
+          res = gen.checkbox({name: "checkbox", title: "Check (response: INTRO)"});
+          res.must.be.eq([]);
+          gen.answers.checkbox.must.be.eq([]);
+        });
+
+        it("#list()", function() {
+          var res;
+
+          res = gen.list({name: "list"});
+          res.must.be.eq("two");
+          gen.answers.list.must.be.eq("two");
+        });
+      });
     }
   });
 
