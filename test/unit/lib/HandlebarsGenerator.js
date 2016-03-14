@@ -1,28 +1,33 @@
 //imports
 const assert = require("assert");
+const justo = require("justo");
+const suite = justo.suite;
+const test = justo.test;
+const init = justo.init;
+const fin = justo.fin;
 const fs = require("justo-fs");
 const file = require("justo-assert-fs").file;
 const dir = require("justo-assert-fs").dir;
 const HandlebarsGenerator = require("../../../dist/es5/nodejs/justo-generator").HandlebarsGenerator;
 
 //suite
-describe("HandlebarsGenerator", function() {
+suite("HandlebarsGenerator", function() {
   var gen, DST, DST_DIR;
   const DATA = "test/unit/data/";
 
-  beforeEach(function() {
+  init("*", function() {
     DST_DIR = new fs.Dir.createTmpDir();
     DST = DST_DIR.path;
 
-    gen = new HandlebarsGenerator({name: "test", src: DATA, dst: DST});
+    gen = new HandlebarsGenerator({mute: true, name: "test", src: DATA, dst: DST});
   });
 
-  afterEach(function() {
+  fin("*", function() {
     DST_DIR.remove();
   });
 
-  describe("#template()", function() {
-    it("template(file)", function() {
+  suite("#template()", function() {
+    test("template(file)", function() {
       var dst = file(DST, "handlebars/file.json");
 
       gen.template("handlebars/file.json");
@@ -30,7 +35,7 @@ describe("HandlebarsGenerator", function() {
       dst.json.must.be.eq({name: "", version: "", author: "Justo Labs", homepage: ""});
     });
 
-    it("template(file, scope)", function() {
+    test("template(file, scope)", function() {
       var dst = file(DST, "handlebars/file.json");
 
       gen.template("handlebars/file.json", {name: "test", version: "1.0.0"});
@@ -38,7 +43,7 @@ describe("HandlebarsGenerator", function() {
       dst.json.must.be.eq({name: "test", version: "1.0.0", author: "Justo Labs", homepage: ""});
     });
 
-    it("template(file, alias, scope)", function() {
+    test("template(file, alias, scope)", function() {
       var dst = file(DST, "handlebars/f.json");
 
       gen.template("handlebars/file.json", "f.json", {name: "test", version: "1.0.0", author: "Justo Labs"});
@@ -47,8 +52,8 @@ describe("HandlebarsGenerator", function() {
     });
   });
 
-  describe("#templateAsString()", function() {
-    it("templateAsString(file)", function() {
+  suite("#templateAsString()", function() {
+    test("templateAsString(file)", function() {
       JSON.parse(gen.templateAsString("/handlebars/file.json")).must.be.eq({
         name: "",
         version: "",
@@ -57,7 +62,7 @@ describe("HandlebarsGenerator", function() {
       });
     });
 
-    it("templateAsString(file, scope)", function() {
+    test("templateAsString(file, scope)", function() {
       JSON.parse(gen.templateAsString("/handlebars/file.json", {name: "test", version: "1.0.0"})).must.be.eq({
         name: "test",
         version: "1.0.0",
@@ -66,7 +71,7 @@ describe("HandlebarsGenerator", function() {
       });
     });
 
-    it("templateAsString(file, scope, opts)", function() {
+    test("templateAsString(file, scope, opts)", function() {
       gen.templateAsString(
         "/handlebars/helpers/myhelper.hbs",
         {x: 1, y: 1},
@@ -81,21 +86,21 @@ describe("HandlebarsGenerator", function() {
     });
   });
 
-  describe("Partials", function() {
-    it("#registerPartial()", function() {
+  suite("Partials", function() {
+    test("#registerPartial()", function() {
       gen.registerPartial("mypartial", "<b>{{msg}}</b>");
       gen.template("handlebars/partial/partial.txt", {msg: "OK"});
       file(DST, "handlebars/partial/partial.txt").text.must.be.eq("<b>OK</b>");
       gen.unregisterPartial("mypartial");
     });
 
-    it("#registerPartialFromFile()", function() {
+    test("#registerPartialFromFile()", function() {
       gen.registerPartialFromFile("mypartial", "handlebars/partial/mypartial.txt");
       gen.template("handlebars/partial/partial.txt", {msg: "OK"});
       file(DST, "handlebars/partial/partial.txt").text.must.be.eq("<b>OK</b>\n");
     });
 
-    it("#unregisterPartial()", function() {
+    test("#unregisterPartial()", function() {
       gen.registerPartial("mypartial", "<b>{{msg}}</b>");
       gen.hasPartial("mypartial").must.be.eq(true);
 
@@ -106,7 +111,7 @@ describe("HandlebarsGenerator", function() {
       gen.hasPartial("mypartial").must.be.eq(false);
     });
 
-    it("#template(file, scope, {partials})", function() {
+    test("#template(file, scope, {partials})", function() {
       gen.template(
         "handlebars/partial/custom.txt",
         {msg: "OK"},
@@ -118,8 +123,8 @@ describe("HandlebarsGenerator", function() {
     });
   });
 
-  describe("Helpers", function() {
-    it("#registerHelper()", function() {
+  suite("Helpers", function() {
+    test("#registerHelper()", function() {
       gen.registerHelper("myhelper", function(x, y) {
         return (x == y);
       });
@@ -131,7 +136,7 @@ describe("HandlebarsGenerator", function() {
       file(DST, "handlebars/helpers/myhelper.hbs").text.must.be.eq("\n");
     });
 
-    it("#unregisterHelper()", function() {
+    test("#unregisterHelper()", function() {
       gen.registerHelper("myhelper", function(x, y) {
         return (x == y);
       });
@@ -143,7 +148,7 @@ describe("HandlebarsGenerator", function() {
       gen.template.bind(gen).must.raise(Error, ["handlebars/helpers/myhelper.hbs", {x: 1, y: 1}]);
     });
 
-    it("#template(file, scope, {helpers})", function() {
+    test("#template(file, scope, {helpers})", function() {
       gen.template(
         "handlebars/helpers/custom.hbs",
         {x: 1, y: 1},
@@ -154,19 +159,18 @@ describe("HandlebarsGenerator", function() {
       gen.hasHelper("test").must.be.eq(false);
     });
 
-    describe("include", function() {
+    suite("include", function() {
       var dst;
 
-      beforeEach(function() {
+      init("*", function() {
         dst = file(DST, "handlebars/helpers/include.hbs");
       });
 
-      it("include file", function() {
+      test("include file", function() {
         gen.template("handlebars/helpers/include.hbs");
         dst.must.exist();
         dst.text.must.be.eq("Hello Justo\nThis is an example\n");
       });
     });
   });
-
-});
+})();

@@ -1,8 +1,15 @@
-"use strict";Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _path = require("path");var _path2 = _interopRequireDefault(_path);var _child_process = require("child_process");var _child_process2 = _interopRequireDefault(_child_process);var _justoInquirer = require("justo-inquirer");var _justoFs = require("justo-fs");var 
+"use strict";Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();
+var _path = require("path");var _path2 = _interopRequireDefault(_path);
+var _child_process = require("child_process");var _child_process2 = _interopRequireDefault(_child_process);
+var _justoInquirer = require("justo-inquirer");
+var _justoFs = require("justo-fs");var fs = _interopRequireWildcard(_justoFs);
+var _justo = require("justo");function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;} else {return Array.from(arr);}}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
 
 
-
-fs = _interopRequireWildcard(_justoFs);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
+var _copy = Symbol();
+var _cli = Symbol();
+var _mkdir = Symbol();
+var _remove = Symbol();
 
 
 var inquirer = new _justoInquirer.Inquirer();var 
@@ -28,7 +35,8 @@ Generator = function () {
     Object.defineProperty(this, "responses", { enumerable: false, value: responses || {} });
     Object.defineProperty(this, "answers", { enumerable: false, writable: true, value: {} });
     Object.defineProperty(this, "src", { enumerable: false, writable: true, value: opts.src });
-    Object.defineProperty(this, "dst", { enumerable: false, writable: true, value: opts.dst || process.cwd() });}_createClass(Generator, [{ key: "init", value: function init() 
+    Object.defineProperty(this, "dst", { enumerable: false, writable: true, value: opts.dst || process.cwd() });
+    Object.defineProperty(this, "mute", { enumerable: false, value: !!opts.mute });}_createClass(Generator, [{ key: "init", value: function init() 
 
 
 
@@ -236,18 +244,23 @@ Generator = function () {
       var entry, dst;
 
 
-      entry = _path2.default.join(this.base, src);
+      entry = _path2.default.join(this.src, src);
 
       if (!fs.exists(entry)) {
         throw new Error("The '" + entry + "' file/dir doesn't exist.");}
 
 
 
-      if (name) {
-        fs.copy(entry, _path2.default.join(this.dst, _path2.default.dirname(src), name));} else 
-      {
-        fs.copy(entry, _path2.default.join(this.dst, src));}} }, { key: "copyIf", value: function copyIf(
+      if (name) dst = _path2.default.join(this.dst, _path2.default.dirname(src), name);else 
+      dst = _path2.default.join(this.dst, src);
 
+
+      if (!this.mute) console.log("Copy " + dst);
+      this[_copy](entry, dst);} }, { key: 
+
+
+    _copy, value: function value(src, dst) {
+      fs.copy(src, dst);} }, { key: "copyIf", value: function copyIf(
 
 
 
@@ -280,7 +293,17 @@ Generator = function () {
 
 
     {for (var _len2 = arguments.length, entry = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {entry[_key2] = arguments[_key2];}
-      fs.remove.apply(fs, [this.dst].concat(entry));} }, { key: "removeIf", value: function removeIf(
+
+      entry = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(entry)));
+
+
+      if (!this.mute) console.log("Remove " + entry);
+      this[_remove](entry);} }, { key: 
+
+
+
+    _remove, value: function value(entry) {
+      fs.remove(entry);} }, { key: "removeIf", value: function removeIf(
 
 
 
@@ -335,8 +358,17 @@ Generator = function () {
 
 
 
-    path) {
-      var dir = new fs.Dir(this.dst, path);
+    dir) {
+
+      dir = _path2.default.join(this.dst, dir);
+
+
+      if (!this.mute) console.log("Create directory " + dir);
+      this[_mkdir](dir);} }, { key: 
+
+
+    _mkdir, value: function value(dir) {
+      dir = new fs.Dir(dir);
 
       if (!dir.exists()) {
         if (!dir.create()) {
@@ -358,11 +390,19 @@ Generator = function () {
 
 
     opts) {
-      var cmd, args, res;
+      var cmd, args;
 
 
       cmd = opts.path ? _path2.default.join(opts.path, opts.cmd) : opts.cmd;
-      args = opts.args;
+      args = opts.args || [];
+
+
+      if (!this.mute) console.log("Run " + cmd + " " + args.join(" "));
+      return this[_cli](cmd, args, opts);} }, { key: 
+
+
+    _cli, value: function value(cmd, args, opts) {
+      var res;
 
 
       res = _child_process2.default.spawnSync(cmd, args, { cwd: opts.wd || this.dst, shell: !!opts.shell });

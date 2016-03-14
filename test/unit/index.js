@@ -1,13 +1,18 @@
 //imports
+const justo = require("justo");
+const suite = justo.suite;
+const test = justo.test;
+const init = justo.init;
+const fin = justo.fin;
 const pkg = require("../../dist/es5/nodejs/justo-generator");
 
 //suite
-describe("index", function() {
-  it("Generator", function() {
+suite("index", function() {
+  test("Generator", function() {
     pkg.Generator.must.be.instanceOf(Function);
   });
 
-  it("Handlebars", function() {
+  test("Handlebars", function() {
     pkg.HandlebarsGenerator.must.be.instanceOf(Function);
   });
-});
+})();

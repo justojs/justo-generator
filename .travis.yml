@@ -14,7 +14,7 @@ os:
 env:
   - TRAVIS=true
 sudo: false
-before_install: npm install -g grunt-cli
+before_install: npm install -g justo-cli
 install: npm install
 #before_script:
 #script:
