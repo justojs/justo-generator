@@ -221,15 +221,9 @@ describe("Generator", function() {
 
         Object.defineProperty(TestGenerator.prototype, "params", {get: function() {
           return {
-            confirm: {
-              title: "Confirm (response: y)?"
-            },
-            input: {
-              title: "Username (response: elvisc)"
-            },
-            password: {
-              title: "Password (response: costello)"
-            },
+            confirm: "Confirm (response: y)?",
+            input: "Username (response: elvisc)",
+            password: "Password (response: costello)",
             checkbox: {
               title: "Check (response: one, three)",
               choices: ["one", "two", "three"]

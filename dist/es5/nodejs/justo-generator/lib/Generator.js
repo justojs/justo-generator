@@ -395,7 +395,7 @@ function isTrue(cond) {
 
 
 function getTitle(q) {
-  return q ? q.title : undefined;}
+  return q ? typeof q == "string" ? q : q.title : undefined;}
 
 
 
