@@ -76,7 +76,7 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
       if (this.mute) this[_template](entry, scope, opts, dst);else 
-      this.simple(function (params) {return _this2[_template].apply(_this2, _toConsumableArray(params));})("Render " + dst.path, entry, scope, opts, dst);} }, { key: 
+      this.simple(function (params) {return _this2[_template].apply(_this2, _toConsumableArray(params));})("Generate " + new fs.File(dst).replacePath(this.dst + "/"), entry, scope, opts, dst);} }, { key: 
 
 
     _template, value: function value(entry, scope, opts, dst) {

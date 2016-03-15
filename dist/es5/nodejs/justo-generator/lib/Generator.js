@@ -268,7 +268,7 @@ Generator = function () {
 
 
       if (this.mute) this[_copy](entry, dst);else 
-      this.simple(function (params) {return _this[_copy].apply(_this, _toConsumableArray(params));})("Copy " + dst, entry, dst);} }, { key: 
+      this.simple(function (params) {return _this[_copy].apply(_this, _toConsumableArray(params));})("Generate " + new fs.File(dst).replacePath(this.dst + "/"), entry, dst);} }, { key: 
 
 
     _copy, value: function value(src, dst) {
@@ -310,7 +310,7 @@ Generator = function () {
 
 
       if (this.mute) this[_remove](entry);else 
-      this.simple(function (params) {return _this2[_remove].apply(_this2, _toConsumableArray(params));})("Remove " + entry, entry);} }, { key: 
+      this.simple(function (params) {return _this2[_remove].apply(_this2, _toConsumableArray(params));})("Remove " + new fs.File(entry).replacePath(this.dst + "/"), entry);} }, { key: 
 
 
 
@@ -376,7 +376,7 @@ Generator = function () {
 
 
       if (this.mute) this[_mkdir](dir);else 
-      this.simple(function (params) {return _this3[_mkdir].apply(_this3, _toConsumableArray(params));})("Create directory " + dir, dir);} }, { key: 
+      this.simple(function (params) {return _this3[_mkdir].apply(_this3, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);} }, { key: 
 
 
     _mkdir, value: function value(dir) {
