@@ -16,4 +16,4 @@
 
 
     default;} });var _HandlebarsGenerator = require("./lib/HandlebarsGenerator");Object.defineProperty(exports, "HandlebarsGenerator", { enumerable: true, get: function get() {return _interopRequireDefault(_HandlebarsGenerator).
-    default;} });var _justo = require("justo");var justo = _interopRequireWildcard(_justo);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}if (!justo.simple) {justo.initialize({ runner: { main: undefined, onError: "continue", logger: { minLevel: "info", maxLevel: "fatal" } } });}
+    default;} });var _justo = require("justo");var _justo2 = _interopRequireDefault(_justo);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}if (!_justo2.default.simple) {_justo2.default.initialize({ runner: { main: undefined, onError: "continue", logger: { minLevel: "info", maxLevel: "fatal" } } });}

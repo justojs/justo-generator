@@ -1,5 +1,5 @@
 //import justo package
-import * as justo from "justo";
+import justo from "justo";
 
 if (!justo.simple) {
   justo.initialize({

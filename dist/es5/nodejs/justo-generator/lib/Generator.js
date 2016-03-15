@@ -3,7 +3,7 @@ var _path = require("path");var _path2 = _interopRequireDefault(_path);
 var _child_process = require("child_process");var _child_process2 = _interopRequireDefault(_child_process);
 var _justoInquirer = require("justo-inquirer");
 var _justoFs = require("justo-fs");var fs = _interopRequireWildcard(_justoFs);
-var _justo = require("justo");var justo = _interopRequireWildcard(_justo);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;} else {return Array.from(arr);}}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
+var _justo = require("justo");var _justo2 = _interopRequireDefault(_justo);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;} else {return Array.from(arr);}}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
 
 
 var _copy = Symbol();
@@ -38,7 +38,7 @@ Generator = function () {
     Object.defineProperty(this, "src", { enumerable: false, writable: true, value: opts.src });
     Object.defineProperty(this, "dst", { enumerable: false, writable: true, value: opts.dst || process.cwd() });
     Object.defineProperty(this, "mute", { enumerable: false, value: !!opts.mute });
-    Object.defineProperty(this, "simple", { enumerable: false, value: opts.simple || justo.simple });}_createClass(Generator, [{ key: "init", value: function init() 
+    Object.defineProperty(this, "simple", { enumerable: false, value: opts.simple || _justo2.default.simple });}_createClass(Generator, [{ key: "init", value: function init() 
 
 
 
@@ -119,9 +119,9 @@ Generator = function () {
     generate, value: function value(answers) {
       var res;
 
-      if (!this.mute) justo.runner.reporters.start("generate");
+      if (!this.mute) _justo2.default.runner.reporters.start("Generation");
       res = this.generate(answers);
-      if (!this.mute) justo.runner.reporters.end();
+      if (!this.mute) _justo2.default.runner.reporters.end();
 
       return res;} }, { key: "run", value: function run() 
 
