@@ -6,6 +6,7 @@ const test = justo.test;
 const init = justo.init;
 const fin = justo.fin;
 const workflow = justo.workflow;
+const spy = require("justo-spy");
 const fs = require("justo-fs");
 const file = require("justo-assert-fs").file;
 const dir = require("justo-assert-fs").dir;
@@ -392,92 +393,6 @@ suite("Generator", function() {
       test("remove() - entry existing", function() {
         gen.remove("unknownentry");
         dir(DST.path, "unknownentry").must.not.exist();
-      });
-    });
-  });
-
-  suite("Logged generation", function() {
-    var gen, DST;
-
-    init("*", function() {
-      DST = new fs.Dir(fs.Dir.TMP_DIR, Date.now());
-      DST.create();
-
-      gen = new Generator({name: "test", src: "test/unit/data/", dst: DST.path});
-    });
-
-    fin("*", function() {
-      DST.remove();
-    });
-
-    suite("#copy()", function() {
-      test("copy(file) - file existing", function() {
-        gen.copy("static/file.json");
-        file(DST.path, "static/file.json").must.exist();
-      });
-
-      test("copy(file, alias) - file existing", function() {
-        gen.copy("static/file.json", "f.json");
-        file(DST.path, "static/f.json").must.exist();
-      });
-
-      test("copy(dir) - dir existing", function() {
-        gen.copy("static");
-        dir(DST.path, "static").must.exist();
-        file(DST.path, "static/file.json").must.exist();
-        file(DST.path, "static/file.txt").must.exist();
-      });
-
-      test("copy(dir, alias) - dir existing", function() {
-        gen.copy("static", "stat");
-        dir(DST.path, "stat").must.exist();
-        file(DST.path, "stat/file.json").must.exist();
-        file(DST.path, "stat/file.txt").must.exist();
-      });
-
-      test("copy(entry) - entry not existing", function() {
-        gen.copy.bind(gen).must.raise(Error, ["static/unknown.txt"]);
-      });
-    });
-
-    suite("#remove()", function() {
-      init("*", function() {
-        gen.copy("static", "stat");
-      });
-
-      test("remove() - entry existing", function() {
-        dir(DST.path, "stat").must.exist();
-        gen.remove("stat");
-        dir(DST.path, "stat").must.not.exist();
-      });
-
-      test("remove() - entry existing", function() {
-        gen.remove("unknownentry");
-        dir(DST.path, "unknownentry").must.not.exist();
-      });
-    });
-
-    suite("#mkdir()", function() {
-      test("mkdir() - dir not existing", function() {
-        gen.mkdir("test1");
-        dir(DST.path, "test1").must.exist();
-      });
-
-      test("mkdir() - dir existing", function() {
-        gen.mkdir("test2");
-        dir(DST.path, "test2").must.exist();
-        gen.mkdir("test2");
-        dir(DST.path, "test2").must.exist();
-      });
-    });
-
-    suite("#cli()", function() {
-      test("cli() - existing command", function() {
-        gen.cli({cmd: "node", args: ["-e", "console.log('bonjour')"], wd: "."}).must.be.eq(0);
-      });
-
-      test("cli() - nonexisting command", function() {
-        gen.cli({cmd: "unknowncommand", args: [], wd: "."}).must.not.be.eq(0);
       });
     });
   });

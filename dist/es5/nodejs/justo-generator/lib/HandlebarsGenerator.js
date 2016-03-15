@@ -2,7 +2,8 @@
 var _path = require("path");var _path2 = _interopRequireDefault(_path);
 var _justoHandlebars = require("justo-handlebars");
 var _justoFs = require("justo-fs");var fs = _interopRequireWildcard(_justoFs);
-var _Generator2 = require("./Generator");var _Generator3 = _interopRequireDefault(_Generator2);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}
+var _Generator2 = require("./Generator");var _Generator3 = _interopRequireDefault(_Generator2);
+var _justo = require("justo");function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;} else {return Array.from(arr);}}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}
 
 
 var _template = Symbol();
@@ -50,7 +51,7 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
 
-    entry) {
+    entry) {var _this2 = this;
       var dst, opts, scope, alias;for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
 
 
@@ -74,8 +75,8 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
       dst = alias ? new fs.File(this.dst, _path2.default.dirname(entry), alias) : new fs.File(this.dst, entry);
 
 
-      if (!this.mute) console.log("Render " + dst.path);
-      this[_template](entry, scope, opts, dst);} }, { key: 
+      if (this.mute) this[_template](entry, scope, opts, dst);else 
+      this.simple(function (params) {return _this2[_template].apply(_this2, _toConsumableArray(params));})("Render " + dst.path, entry, scope, opts, dst);} }, { key: 
 
 
     _template, value: function value(entry, scope, opts, dst) {

@@ -2,13 +2,15 @@
 var _path = require("path");var _path2 = _interopRequireDefault(_path);
 var _child_process = require("child_process");var _child_process2 = _interopRequireDefault(_child_process);
 var _justoInquirer = require("justo-inquirer");
-var _justoFs = require("justo-fs");var fs = _interopRequireWildcard(_justoFs);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;} else {return Array.from(arr);}}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
+var _justoFs = require("justo-fs");var fs = _interopRequireWildcard(_justoFs);
+var _justo = require("justo");var justo = _interopRequireWildcard(_justo);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;} else {return Array.from(arr);}}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}
 
 
 var _copy = Symbol();
 var _cli = Symbol();
 var _mkdir = Symbol();
 var _remove = Symbol();
+var generate = Symbol();
 
 
 var inquirer = new _justoInquirer.Inquirer();var 
@@ -35,7 +37,8 @@ Generator = function () {
     Object.defineProperty(this, "answers", { enumerable: false, writable: true, value: {} });
     Object.defineProperty(this, "src", { enumerable: false, writable: true, value: opts.src });
     Object.defineProperty(this, "dst", { enumerable: false, writable: true, value: opts.dst || process.cwd() });
-    Object.defineProperty(this, "mute", { enumerable: false, value: !!opts.mute });}_createClass(Generator, [{ key: "init", value: function init() 
+    Object.defineProperty(this, "mute", { enumerable: false, value: !!opts.mute });
+    Object.defineProperty(this, "simple", { enumerable: false, value: opts.simple || justo.simple });}_createClass(Generator, [{ key: "init", value: function init() 
 
 
 
@@ -109,8 +112,18 @@ Generator = function () {
 
 
 
-    answers) {} }, { key: "run", value: function run() 
+    answers) {} }, { key: 
 
+
+
+    generate, value: function value(answers) {
+      var res;
+
+      if (!this.mute) justo.runner.reporters.start("generate");
+      res = this.generate(answers);
+      if (!this.mute) justo.runner.reporters.end();
+
+      return res;} }, { key: "run", value: function run() 
 
 
 
@@ -129,7 +142,7 @@ Generator = function () {
       this.init();
       this.prompt(this.answers);
       this.pregenerate(this.answers);
-      if (snippet = this.generate(this.answers)) console.log(snippet);
+      if (snippet = this[generate](this.answers)) console.log(snippet);
       this.fin();} }, { key: "confirm", value: function confirm(
 
 
@@ -239,7 +252,7 @@ Generator = function () {
 
 
 
-    src, name) {
+    src, name) {var _this = this;
       var entry, dst;
 
 
@@ -254,8 +267,8 @@ Generator = function () {
       dst = _path2.default.join(this.dst, src);
 
 
-      if (!this.mute) console.log("Copy " + dst);
-      this[_copy](entry, dst);} }, { key: 
+      if (this.mute) this[_copy](entry, dst);else 
+      this.simple(function (params) {return _this[_copy].apply(_this, _toConsumableArray(params));})("Copy " + dst, entry, dst);} }, { key: 
 
 
     _copy, value: function value(src, dst) {
@@ -291,13 +304,13 @@ Generator = function () {
 
 
 
-    {for (var _len2 = arguments.length, entry = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {entry[_key2] = arguments[_key2];}
+    {var _this2 = this;for (var _len2 = arguments.length, entry = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {entry[_key2] = arguments[_key2];}
 
       entry = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(entry)));
 
 
-      if (!this.mute) console.log("Remove " + entry);
-      this[_remove](entry);} }, { key: 
+      if (this.mute) this[_remove](entry);else 
+      this.simple(function (params) {return _this2[_remove].apply(_this2, _toConsumableArray(params));})("Remove " + entry, entry);} }, { key: 
 
 
 
@@ -357,13 +370,13 @@ Generator = function () {
 
 
 
-    dir) {
+    dir) {var _this3 = this;
 
       dir = _path2.default.join(this.dst, dir);
 
 
-      if (!this.mute) console.log("Create directory " + dir);
-      this[_mkdir](dir);} }, { key: 
+      if (this.mute) this[_mkdir](dir);else 
+      this.simple(function (params) {return _this3[_mkdir].apply(_this3, _toConsumableArray(params));})("Create directory " + dir, dir);} }, { key: 
 
 
     _mkdir, value: function value(dir) {
@@ -388,7 +401,7 @@ Generator = function () {
 
 
 
-    opts) {
+    opts) {var _this4 = this;
       var cmd, args;
 
 
@@ -396,8 +409,8 @@ Generator = function () {
       args = opts.args || [];
 
 
-      if (!this.mute) console.log("Run " + cmd + " " + args.join(" "));
-      return this[_cli](cmd, args, opts);} }, { key: 
+      if (this.mute) return this[_cli](cmd, args, opts);else 
+      return this.simple(function (params) {return _this4[_cli].apply(_this4, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);} }, { key: 
 
 
     _cli, value: function value(cmd, args, opts) {

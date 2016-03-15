@@ -1,6 +1,6 @@
 {
   "name": "justo-generator",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "Generator support.",
   "homepage": "http://www.justojs.org",
   "author": {
@@ -32,6 +32,7 @@
     "npm": ">= 3.0.0"
   },
   "dependencies": {
+    "justo": "*",
     "justo-handlebars": "*",
     "justo-inquirer": "*",
     "justo-fs": "*"
@@ -39,13 +40,13 @@
   "peerDependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "*",
-    "justo": "*",
     "justo-assert": "*",
     "justo-assert-fs": "*",
     "justo-plugin-babel": "*",
     "justo-plugin-fs": "*",
     "justo-plugin-jshint": "*",
-    "justo-plugin-npm": "*"
+    "justo-plugin-npm": "*",
+    "justo-spy": "*"
   },
   "preferGlobal": false,
   "main": "index.js",
