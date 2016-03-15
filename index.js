@@ -2,7 +2,7 @@
 import * as justo from "justo";
 
 if (!justo.simple) {
-  justo.initiate({
+  justo.initialize({
     runner: {
       main: undefined,
       onError: "continue",
