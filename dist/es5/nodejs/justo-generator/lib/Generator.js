@@ -153,8 +153,16 @@ Generator = function () {
 
 
 
+
+
+
+
+
     q) {
       var res;
+
+
+      if (typeof q == "string") q = { name: q };
 
 
       if (this.responses.hasOwnProperty(q.name)) res = [true, "true", "yes"].indexOf(this.responses[q.name]) >= 0;else 
@@ -172,8 +180,16 @@ Generator = function () {
 
 
 
+
+
+
+
+
     q) {
       var res;
+
+
+      if (typeof q == "string") q = { name: q };
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
@@ -191,8 +207,16 @@ Generator = function () {
 
 
 
+
+
+
+
+
     q) {
       var res;
+
+
+      if (typeof q == "string") q = { name: q };
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
@@ -210,8 +234,16 @@ Generator = function () {
 
 
 
+
+
+
+
+
     q) {
       var res;
+
+
+      if (typeof q == "string") q = { name: q };
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
@@ -229,8 +261,16 @@ Generator = function () {
 
 
 
+
+
+
+
+
     q) {
       var res;
+
+
+      if (typeof q == "string") q = { name: q };
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
