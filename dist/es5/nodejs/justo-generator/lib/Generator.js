@@ -335,7 +335,12 @@ Generator = function () {
 
 
 
-    dst, text, line) {var _this2 = this;
+
+
+
+
+
+    dst, text, opts) {var _this2 = this;
       var entry;
 
 
@@ -346,12 +351,12 @@ Generator = function () {
 
 
 
-      if (this.mute) this[_append](entry, text, line);else 
-      this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + entry, entry, text, line);} }, { key: 
+      if (this.mute) this[_append](entry, text, opts);else 
+      this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + entry, entry, text, opts);} }, { key: 
 
 
-    _append, value: function value(dst, text, line) {
-      new fs.File(dst).appendText(text, line);} }, { key: "appendIf", value: function appendIf(
+    _append, value: function value(dst, text, opts) {
+      new fs.File(dst).appendText(text, opts);} }, { key: "appendIf", value: function appendIf(
 
 
 
