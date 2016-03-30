@@ -345,14 +345,15 @@ Generator = function () {
 
 
       entry = _path2.default.join(this.dst, dst);
-
-      if (!fs.exists(entry)) {
-        throw new Error("The '" + entry + "' file doesn't exist.");}
+      if (!fs.exists(entry)) throw new Error("The '" + entry + "' file doesn't exist.");
 
 
+      if (this.mute) {
+        this[_append](entry, text, opts);} else 
+      {
+        var file = new fs.File(entry).replacePath(this.dst + "/");
+        this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + file, entry, text, opts);}} }, { key: 
 
-      if (this.mute) this[_append](entry, text, opts);else 
-      this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + entry, entry, text, opts);} }, { key: 
 
 
     _append, value: function value(dst, text, opts) {
