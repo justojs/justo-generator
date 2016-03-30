@@ -11,6 +11,7 @@ var _cli = Symbol();
 var _mkdir = Symbol();
 var _remove = Symbol();
 var generate = Symbol();
+var _append = Symbol();
 
 
 var inquirer = new _justoInquirer.Inquirer();var 
@@ -319,7 +320,45 @@ Generator = function () {
 
 
     cond) {for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
-      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "read", value: function read(
+      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "append", value: function append(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    dst, text, line) {var _this2 = this;
+      var entry;
+
+
+      entry = _path2.default.join(this.dst, dst);
+
+      if (!fs.exists(entry)) {
+        throw new Error("The '" + entry + "' file doesn't exist.");}
+
+
+
+      if (this.mute) this[_append](entry, text, line);else 
+      this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + entry, entry, text, line);} }, { key: 
+
+
+    _append, value: function value(dst, text, line) {
+      new fs.File(dst).appendText(text, line);} }, { key: "appendIf", value: function appendIf(
+
+
+
+
+
+    cond) {for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
+      if (isTrue(cond)) this.append.apply(this, args);} }, { key: "read", value: function read(
 
 
 
@@ -344,13 +383,13 @@ Generator = function () {
 
 
 
-    {var _this2 = this;for (var _len2 = arguments.length, entry = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {entry[_key2] = arguments[_key2];}
+    {var _this3 = this;for (var _len3 = arguments.length, entry = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {entry[_key3] = arguments[_key3];}
 
       entry = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(entry)));
 
 
       if (this.mute) this[_remove](entry);else 
-      this.simple(function (params) {return _this2[_remove].apply(_this2, _toConsumableArray(params));})("Remove " + new fs.File(entry).replacePath(this.dst + "/"), entry);} }, { key: 
+      this.simple(function (params) {return _this3[_remove].apply(_this3, _toConsumableArray(params));})("Remove " + new fs.File(entry).replacePath(this.dst + "/"), entry);} }, { key: 
 
 
 
@@ -364,7 +403,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len3 = arguments.length, entry = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {entry[_key3 - 1] = arguments[_key3];}
+    cond) {for (var _len4 = arguments.length, entry = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {entry[_key4 - 1] = arguments[_key4];}
       if (cond) this.remove.apply(this, entry);} }, { key: "template", value: function template() 
 
 
@@ -389,7 +428,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len4 = arguments.length, args = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {args[_key4 - 1] = arguments[_key4];}
+    cond) {for (var _len5 = arguments.length, args = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {args[_key5 - 1] = arguments[_key5];}
       if (isTrue(cond)) this.template.apply(this, args);} }, { key: "templateAsString", value: function templateAsString() 
 
 
@@ -410,13 +449,13 @@ Generator = function () {
 
 
 
-    dir) {var _this3 = this;
+    dir) {var _this4 = this;
 
       dir = _path2.default.join(this.dst, dir);
 
 
       if (this.mute) this[_mkdir](dir);else 
-      this.simple(function (params) {return _this3[_mkdir].apply(_this3, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);} }, { key: 
+      this.simple(function (params) {return _this4[_mkdir].apply(_this4, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);} }, { key: 
 
 
     _mkdir, value: function value(dir) {
@@ -432,7 +471,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len5 = arguments.length, args = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {args[_key5 - 1] = arguments[_key5];}
+    cond) {for (var _len6 = arguments.length, args = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {args[_key6 - 1] = arguments[_key6];}
       if (isTrue(cond)) this.mkdir.apply(this, args);} }, { key: "cli", value: function cli(
 
 
@@ -441,7 +480,7 @@ Generator = function () {
 
 
 
-    opts) {var _this4 = this;
+    opts) {var _this5 = this;
       var cmd, args;
 
 
@@ -450,7 +489,7 @@ Generator = function () {
 
 
       if (this.mute) return this[_cli](cmd, args, opts);else 
-      return this.simple(function (params) {return _this4[_cli].apply(_this4, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);} }, { key: 
+      return this.simple(function (params) {return _this5[_cli].apply(_this5, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);} }, { key: 
 
 
     _cli, value: function value(cmd, args, opts) {
@@ -466,7 +505,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len6 = arguments.length, args = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {args[_key6 - 1] = arguments[_key6];}
+    cond) {for (var _len7 = arguments.length, args = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {args[_key7 - 1] = arguments[_key7];}
       if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "base", get: function get() {return this.src;} }, { key: "desc", get: function get() {return "";} }, { key: "params", get: function get() {return {};} }, { key: "help", get: function get() {return { desc: this.desc, params: this.params };} }]);return Generator;}();exports.default = Generator;
 
 

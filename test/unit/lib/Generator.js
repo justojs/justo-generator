@@ -349,6 +349,22 @@ suite("Generator", function() {
       });
     });
 
+    suite("#append()", function() {
+      init("*", function() {
+        gen.copy("static/append.txt");
+      });
+
+      test("append(file, text)", function() {
+        gen.append("static/append.txt", "hi");
+        file(DST.path, "static/append.txt").text.must.be.eq("zero\none\ntwo\nthree\nhi");
+      });
+
+      test("append(file, text, line)", function() {
+        gen.append("static/append.txt", "hi", -2);
+        file(DST.path, "static/append.txt").text.must.be.eq("zero\none\ntwo\nhithree\n");
+      });
+    });
+
     suite("#copy()", function() {
       test("copy(file) - file existing", function() {
         gen.copy("static/file.json");
