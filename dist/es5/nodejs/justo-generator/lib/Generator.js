@@ -512,7 +512,56 @@ Generator = function () {
 
 
     cond) {for (var _len7 = arguments.length, args = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {args[_key7 - 1] = arguments[_key7];}
-      if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "base", get: function get() {return this.src;} }, { key: "desc", get: function get() {return "";} }, { key: "params", get: function get() {return {};} }, { key: "help", get: function get() {return { desc: this.desc, params: this.params };} }]);return Generator;}();exports.default = Generator;
+      if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "getFiles", value: function getFiles(
+
+
+
+
+
+
+
+
+    dir) {
+      return new fs.Dir(this.dst, dir).files;} }, { key: "toSnakeCase", value: function toSnakeCase(
+
+
+
+
+
+
+
+
+
+
+
+    text) {var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      if (opts.case == "lower") text = text.toLowerCase();else 
+      if (opts.case == "upper") text = text.toUpperCase();
+
+
+      text = text.replace(/[ -]/g, "_");
+
+
+      return text;} }, { key: "toCamelCase", value: function toCamelCase(
+
+
+
+
+
+
+
+
+
+    text) {var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      text = text.replace(/([_ -][a-z])/g, function (letter) {return letter.toUpperCase();}).replace(/[_ -]/g, "");
+
+      if (opts.capitalized === true) text = text[0].toUpperCase() + text.slice(1);else 
+      if (opts.capitalized === false) text = text[0].toLowerCase() + text.slice(1);
+
+
+      return text;} }, { key: "base", get: function get() {return this.src;} }, { key: "desc", get: function get() {return "";} }, { key: "params", get: function get() {return {};} }, { key: "help", get: function get() {return { desc: this.desc, params: this.params };} }]);return Generator;}();exports.default = Generator;
 
 
 

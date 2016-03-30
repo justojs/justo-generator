@@ -69,6 +69,48 @@ suite("Generator", function() {
     });
   });
 
+  suite("utils", function() {
+    var gen;
+
+    init("*", function() {
+      gen = new Generator({mute: true, name: "test", src: "test/unit/data", dst: "test/unit/data"});
+    });
+
+    suite("#getFiles()", function() {
+      test("getFiles(dir)", function() {
+        gen.getFiles("handlebars").length.must.be.eq(1);
+      });
+    });
+
+    suite("#toSnakeCase()", function() {
+      test("toSnakeCase(text)", function() {
+        gen.toSnakeCase("this is-an example").must.be.eq("this_is_an_example");
+      });
+
+      test("toSnakeCase(text, {case: \"lower\"})", function() {
+        gen.toSnakeCase("this IS-AN eXample", {case: "lower"}).must.be.eq("this_is_an_example");
+      });
+
+      test("toSnakeCase(text, {case: \"upper\"})", function() {
+        gen.toSnakeCase("this IS-AN eXample", {case: "upper"}).must.be.eq("THIS_IS_AN_EXAMPLE");
+      });
+    });
+
+    suite("#toCamelCase()", function() {
+      test("toCamelCase(text)", function() {
+        gen.toCamelCase("this is-an_example").must.be.eq("thisIsAnExample");
+      });
+
+      test("toCamelCase(text, {capitalized: true})", function() {
+        gen.toCamelCase("this Is-an_example", {capitalized: true}).must.be.eq("ThisIsAnExample");
+      });
+
+      test("toCamelCase(text, {capitalized: false})", function() {
+        gen.toCamelCase("This is-an_Example", {capitalized: false}).must.be.eq("thisIsAnExample");
+      });
+    });
+  });
+
   suite("Inquire", function() {
     suite("With answer using parameter", function() {
       var gen;
