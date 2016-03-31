@@ -82,6 +82,16 @@ suite("Generator", function() {
       });
     });
 
+    suite("#getFileNames()", function() {
+      test("getFileNames(dir)", function() {
+        gen.getFileNames("handlebars").must.be.eq(["file.json"]);
+      });
+
+      test("getFileNames(dir, opts)", function() {
+        gen.getFileNames("handlebars", {ext: false}).must.be.eq(["file"]);
+      });
+    });
+
     suite("#toSnakeCase()", function() {
       test("toSnakeCase(text)", function() {
         gen.toSnakeCase("this is-an example").must.be.eq("this_is_an_example");

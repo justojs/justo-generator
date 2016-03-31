@@ -540,7 +540,17 @@ Generator = function () {
 
 
     dir) {
-      return new fs.Dir(this.dst, dir).files;} }, { key: "toSnakeCase", value: function toSnakeCase(
+      return new fs.Dir(this.dst, dir).files;} }, { key: "getFileNames", value: function getFileNames(
+
+
+
+
+
+
+
+
+    dir, opts) {
+      return new fs.Dir(this.dst, dir).getFileNames(opts);} }, { key: "toSnakeCase", value: function toSnakeCase(
 
 
 
