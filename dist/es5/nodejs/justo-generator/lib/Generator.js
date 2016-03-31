@@ -86,6 +86,17 @@ Generator = function () {
 
 
 
+    {} }, { key: "preprompt", value: function preprompt() 
+
+
+
+
+
+
+
+
+
+
     {} }, { key: "prompt", value: function prompt(
 
 
@@ -134,16 +145,23 @@ Generator = function () {
 
 
     {
-      var snippet;
+      var err, snippet;
 
 
       this.answers = Object.assign({}, this.responses);
 
 
       this.init();
-      this.prompt(this.answers);
-      this.pregenerate(this.answers);
-      if (snippet = this[generate](this.answers)) console.log(snippet);
+
+      err = this.preprompt();
+      if (typeof err != "string") {
+        this.prompt(this.answers);
+        this.pregenerate(this.answers);
+        if (snippet = this[generate](this.answers)) console.log(snippet);} else 
+      {
+        console.error(err);}
+
+
       this.fin();} }, { key: "confirm", value: function confirm(
 
 
