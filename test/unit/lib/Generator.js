@@ -92,6 +92,12 @@ suite("Generator", function() {
       });
     });
 
+    suite("#getEntryNames()", function() {
+      test("getEntryNames(dir)", function() {
+        gen.getEntryNames("handlebars").sort().must.be.eq(["file.json", "helpers", "partial"]);
+      });
+    });
+
     suite("#toSnakeCase()", function() {
       test("toSnakeCase(text)", function() {
         gen.toSnakeCase("this is-an example").must.be.eq("this_is_an_example");

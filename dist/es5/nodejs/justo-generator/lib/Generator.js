@@ -550,7 +550,16 @@ Generator = function () {
 
 
     dir, opts) {
-      return new fs.Dir(this.dst, dir).getFileNames(opts);} }, { key: "toSnakeCase", value: function toSnakeCase(
+      return new fs.Dir(this.dst, dir).getFileNames(opts);} }, { key: "getEntryNames", value: function getEntryNames() 
+
+
+
+
+
+
+
+    {var dir = arguments.length <= 0 || arguments[0] === undefined ? "." : arguments[0];
+      return new fs.Dir(this.dst, dir).getEntryNames();} }, { key: "toSnakeCase", value: function toSnakeCase(
 
 
 
