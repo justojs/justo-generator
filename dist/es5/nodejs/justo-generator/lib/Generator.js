@@ -559,7 +559,17 @@ Generator = function () {
 
 
     {var dir = arguments.length <= 0 || arguments[0] === undefined ? "." : arguments[0];
-      return new fs.Dir(this.dst, dir).getEntryNames();} }, { key: "toSnakeCase", value: function toSnakeCase(
+      return new fs.Dir(this.dst, dir).getEntryNames();} }, { key: "hasEntry", value: function hasEntry() 
+
+
+
+
+
+
+
+
+    {for (var _len8 = arguments.length, pth = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {pth[_key8] = arguments[_key8];}
+      return fs.exists.apply(fs, [this.dst].concat(pth));} }, { key: "toSnakeCase", value: function toSnakeCase(
 
 
 

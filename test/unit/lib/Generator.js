@@ -8,6 +8,7 @@ const fin = justo.fin;
 const workflow = justo.workflow;
 const spy = require("justo-spy");
 const fs = require("justo-fs");
+const Dir = fs.Dir;
 const file = require("justo-assert-fs").file;
 const dir = require("justo-assert-fs").dir;
 const Generator = require("../../../dist/es5/nodejs/justo-generator").Generator;
@@ -89,6 +90,16 @@ suite("Generator", function() {
 
       test("getFileNames(dir, opts)", function() {
         gen.getFileNames("handlebars", {ext: false}).must.be.eq(["file"]);
+      });
+    });
+
+    suite("#hasEntry()", function() {
+      test("hasEntry(path) : true", function() {
+        gen.hasEntry("handlebars").must.be.eq(true);
+      });
+
+      test("hasEntry(path) : false", function() {
+        gen.hasEntry("unknown").must.be.eq(false);
       });
     });
 
@@ -370,17 +381,17 @@ suite("Generator", function() {
   });
 
   suite("Mute generation", function() {
-    var gen, DST;
+    var gen, DST_DIR, DST;
 
     init("*", function() {
-      DST = new fs.Dir(fs.Dir.TMP_DIR, Date.now());
-      DST.create();
+      DST_DIR = Dir.createTmpDir();
+      DST = DST_DIR.path;
 
-      gen = new Generator({mute: true, name: "test", src: "test/unit/data/", dst: DST.path});
+      gen = new Generator({mute: true, name: "test", src: "test/unit/data/", dst: DST});
     });
 
     fin("*", function() {
-      DST.remove();
+      DST_DIR.remove();
     });
 
     suite("#cli()", function() {
@@ -396,14 +407,14 @@ suite("Generator", function() {
     suite("#mkdir()", function() {
       test("mkdir() - dir not existing", function() {
         gen.mkdir("test1");
-        dir(DST.path, "test1").must.exist();
+        dir(DST, "test1").must.exist();
       });
 
       test("mkdir() - dir existing", function() {
         gen.mkdir("test2");
-        dir(DST.path, "test2").must.exist();
+        dir(DST, "test2").must.exist();
         gen.mkdir("test2");
-        dir(DST.path, "test2").must.exist();
+        dir(DST, "test2").must.exist();
       });
     });
 
@@ -414,38 +425,38 @@ suite("Generator", function() {
 
       test("append(file, text)", function() {
         gen.append("static/append.txt", "hi");
-        file(DST.path, "static/append.txt").text.must.be.eq("zero\none\ntwo\nthree\nhi");
+        file(DST, "static/append.txt").text.must.be.eq("zero\none\ntwo\nthree\nhi");
       });
 
       test("append(file, text, line)", function() {
         gen.append("static/append.txt", "hi", -2);
-        file(DST.path, "static/append.txt").text.must.be.eq("zero\none\ntwo\nhithree\n");
+        file(DST, "static/append.txt").text.must.be.eq("zero\none\ntwo\nhithree\n");
       });
     });
 
     suite("#copy()", function() {
       test("copy(file) - file existing", function() {
         gen.copy("static/file.json");
-        file(DST.path, "static/file.json").must.exist();
+        file(DST, "static/file.json").must.exist();
       });
 
       test("copy(file, alias) - file existing", function() {
         gen.copy("static/file.json", "f.json");
-        file(DST.path, "static/f.json").must.exist();
+        file(DST, "static/f.json").must.exist();
       });
 
       test("copy(dir) - dir existing", function() {
         gen.copy("static");
-        dir(DST.path, "static").must.exist();
-        file(DST.path, "static/file.json").must.exist();
-        file(DST.path, "static/file.txt").must.exist();
+        dir(DST, "static").must.exist();
+        file(DST, "static/file.json").must.exist();
+        file(DST, "static/file.txt").must.exist();
       });
 
       test("copy(dir, alias) - dir existing", function() {
         gen.copy("static", "stat");
-        dir(DST.path, "stat").must.exist();
-        file(DST.path, "stat/file.json").must.exist();
-        file(DST.path, "stat/file.txt").must.exist();
+        dir(DST, "stat").must.exist();
+        file(DST, "stat/file.json").must.exist();
+        file(DST, "stat/file.txt").must.exist();
       });
 
       test("copy(entry) - entry not existing", function() {
@@ -459,14 +470,14 @@ suite("Generator", function() {
       });
 
       test("remove() - entry existing", function() {
-        dir(DST.path, "stat").must.exist();
+        dir(DST, "stat").must.exist();
         gen.remove("stat");
-        dir(DST.path, "stat").must.not.exist();
+        dir(DST, "stat").must.not.exist();
       });
 
       test("remove() - entry existing", function() {
         gen.remove("unknownentry");
-        dir(DST.path, "unknownentry").must.not.exist();
+        dir(DST, "unknownentry").must.not.exist();
       });
     });
   });
