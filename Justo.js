@@ -15,7 +15,13 @@ catalog.workflow({name: "build", desc: "Build the package"}, function() {
 
   jshint("Best practices and grammar", {
     output: true,
-    src: ["index.js", "lib/"]
+    src: [
+      "index.js",
+      "Justo.js",
+      "lib/",
+      "test/unit/index.js",
+      "test/unit/lib/"
+    ]
   });
 
   babel("Transpile", {

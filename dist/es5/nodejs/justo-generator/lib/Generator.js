@@ -115,6 +115,8 @@ Generator = function () {
 
 
 
+
+
     answers) {} }, { key: "generate", value: function generate(
 
 
@@ -154,13 +156,15 @@ Generator = function () {
       this.init();
 
       err = this.preprompt();
-      if (typeof err != "string") {
+      if (!err) {
         this.prompt(this.answers);
-        this.pregenerate(this.answers);
-        if (snippet = this[generate](this.answers)) console.log(snippet);} else 
-      {
-        console.error(err);}
+        err = this.pregenerate(this.answers);
+        if (!err) {
+          if (snippet = this[generate](this.answers)) console.log(snippet);}}
 
+
+
+      if (err) console.error(err instanceof Error ? err.toString() : "Error: " + err);
 
       this.fin();} }, { key: "confirm", value: function confirm(
 
