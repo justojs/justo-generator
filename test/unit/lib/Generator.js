@@ -77,6 +77,12 @@ suite("Generator", function() {
       gen = new Generator({mute: true, name: "test", src: "test/unit/data", dst: "test/unit/data"});
     });
 
+    suite("#clipboard()", function() {
+      test({name: "clipboard(text)", ignore: process.env.TRAVIS == "true"}, function() {
+        gen.clipboard("the text");
+      });
+    });
+
     suite("#getFiles()", function() {
       test("getFiles(dir)", function() {
         gen.getFiles("handlebars").length.must.be.eq(1);
