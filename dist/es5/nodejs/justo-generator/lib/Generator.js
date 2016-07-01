@@ -195,7 +195,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = [true, "true", "yes"].indexOf(this.responses[q.name]) >= 0;else 
-      res = inquirer.confirm(Object.assign({ title: getTitle(this.params[q.name]) }, q));
+      res = inquirer.confirm(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
@@ -222,7 +222,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.input(Object.assign({ title: getTitle(this.params[q.name]) }, q));
+      res = inquirer.input(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
@@ -249,7 +249,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.password(Object.assign({ title: getTitle(this.params[q.name]) }, q));
+      res = inquirer.password(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
@@ -276,7 +276,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.checkbox(Object.assign({ title: getTitle(this.params[q.name]), choices: getChoices(this.params[q.name]) }, q));
+      res = inquirer.checkbox(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
@@ -303,7 +303,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
-      res = inquirer.list(Object.assign({ title: getTitle(this.params[q.name]), choices: getChoices(this.params[q.name]) }, q));
+      res = inquirer.list(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
@@ -646,16 +646,20 @@ function isTrue(cond) {
 
 
 
+function getQOptions(q) {
+  var res = {};
 
 
-function getTitle(q) {
-  return q ? typeof q == "string" ? q : q.title : undefined;}
+  q = q || {};
+
+
+  if (typeof q == "string") {
+    res.title = q;} else 
+  {
+    if (res.hasOwnProperty("title")) res.title = q.title;
+    if (res.hasOwnProperty("default")) res.default = q.default;
+    if (res.hasOwnProperty("choices")) res.choices = q.choices;}
 
 
 
-
-
-
-
-function getChoices(q) {
-  return q ? q.choices : undefined;}
+  return res;}
