@@ -656,9 +656,9 @@ function getQOptions(q) {
   if (typeof q == "string") {
     res.title = q;} else 
   {
-    if (res.hasOwnProperty("title")) res.title = q.title;
-    if (res.hasOwnProperty("default")) res.default = q.default;
-    if (res.hasOwnProperty("choices")) res.choices = q.choices;}
+    if (q.hasOwnProperty("title")) res.title = q.title;
+    if (q.hasOwnProperty("default")) res.default = q.default;
+    if (q.hasOwnProperty("choices")) res.choices = q.choices;}
 
 
 
