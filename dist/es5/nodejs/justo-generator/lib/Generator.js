@@ -498,7 +498,7 @@ Generator = function () {
 
     {var _this4 = this;for (var _len6 = arguments.length, entry = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {entry[_key6] = arguments[_key6];}
       if (this.mute) return this[_exists].apply(this, entry);else 
-      this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));}).apply(undefined, ["Check whether '" + entry.join("/") + "' exists"].concat(entry));} }, { key: 
+      return this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));}).apply(undefined, ["Check whether '" + entry.join("/") + "' exists"].concat(entry));} }, { key: 
 
 
     _exists, value: function value() {for (var _len7 = arguments.length, entry = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {entry[_key7] = arguments[_key7];}

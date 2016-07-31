@@ -386,7 +386,7 @@ suite("Generator", function() {
     });
   });
 
-  suite("#exists()", function() {
+  suite.only("#exists()", function() {
     var gen;
 
     init("*", function() {
@@ -411,6 +411,10 @@ suite("Generator", function() {
 
     test("exists(entry) : false", function() {
       gen.exists("unknown").must.be.eq(false);
+    });
+
+    test("exists(dir, entry) : false", function() {
+      gen.exists("static", "unknown").must.be.eq(false);
     });
   });
 
