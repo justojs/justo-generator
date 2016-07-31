@@ -386,6 +386,26 @@ suite("Generator", function() {
     });
   });
 
+  suite("#exists()", function() {
+    var gen;
+
+    init("*", function() {
+      gen = new Generator({mute: true, name: "test", src: "test/unit/data/", dst: "test/unit/data"});
+    });
+
+    test("exists(file) : true", function() {
+      gen.exists("static/file.txt").must.be.eq(true);
+    });
+
+    test("exists(dir) : true", function() {
+      gen.exists("handlebars", "helpers").must.be.eq(true);
+    });
+
+    test("exists(entry) : false", function() {
+      gen.exists("unknown").must.be.eq(false);
+    });
+  });
+
   suite("Mute generation", function() {
     var gen, DST_DIR, DST;
 

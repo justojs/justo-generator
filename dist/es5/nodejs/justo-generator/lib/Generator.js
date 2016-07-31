@@ -10,6 +10,7 @@ var _justo = require("justo");var _justo2 = _interopRequireDefault(_justo);funct
 
 var _copy = Symbol();
 var _cli = Symbol();
+var _exists = Symbol();
 var _mkdir = Symbol();
 var _remove = Symbol();
 var generate = Symbol();
@@ -486,7 +487,7 @@ Generator = function () {
 
 
     {
-      throw new Error("Abstract method.");} }, { key: "mkdir", value: function mkdir(
+      throw new Error("Abstract method.");} }, { key: "exists", value: function exists() 
 
 
 
@@ -494,13 +495,32 @@ Generator = function () {
 
 
 
-    dir) {var _this4 = this;
+
+    {var _this4 = this;for (var _len6 = arguments.length, entry = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {entry[_key6] = arguments[_key6];}
+
+      entry = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(entry)));
+
+
+      if (this.mute) return this[_exists](entry);else 
+      this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));})("Check whether '" + new fs.entry(entry).replacePath(this.dst + "/") + "' exists", entry);} }, { key: 
+
+
+    _exists, value: function value(entry) {
+      return fs.exists(entry);} }, { key: "mkdir", value: function mkdir(
+
+
+
+
+
+
+
+    dir) {var _this5 = this;
 
       dir = _path2.default.join(this.dst, dir);
 
 
       if (this.mute) this[_mkdir](dir);else 
-      this.simple(function (params) {return _this4[_mkdir].apply(_this4, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);} }, { key: 
+      this.simple(function (params) {return _this5[_mkdir].apply(_this5, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);} }, { key: 
 
 
     _mkdir, value: function value(dir) {
@@ -516,7 +536,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len6 = arguments.length, args = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {args[_key6 - 1] = arguments[_key6];}
+    cond) {for (var _len7 = arguments.length, args = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {args[_key7 - 1] = arguments[_key7];}
       if (isTrue(cond)) this.mkdir.apply(this, args);} }, { key: "cli", value: function cli(
 
 
@@ -525,7 +545,7 @@ Generator = function () {
 
 
 
-    opts) {var _this5 = this;
+    opts) {var _this6 = this;
       var cmd, args;
 
 
@@ -534,7 +554,7 @@ Generator = function () {
 
 
       if (this.mute) return this[_cli](cmd, args, opts);else 
-      return this.simple(function (params) {return _this5[_cli].apply(_this5, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);} }, { key: 
+      return this.simple(function (params) {return _this6[_cli].apply(_this6, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);} }, { key: 
 
 
     _cli, value: function value(cmd, args, opts) {
@@ -550,7 +570,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len7 = arguments.length, args = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {args[_key7 - 1] = arguments[_key7];}
+    cond) {for (var _len8 = arguments.length, args = Array(_len8 > 1 ? _len8 - 1 : 0), _key8 = 1; _key8 < _len8; _key8++) {args[_key8 - 1] = arguments[_key8];}
       if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "getFiles", value: function getFiles(
 
 
@@ -589,7 +609,7 @@ Generator = function () {
 
 
 
-    {for (var _len8 = arguments.length, pth = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {pth[_key8] = arguments[_key8];}
+    {for (var _len9 = arguments.length, pth = Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {pth[_key9] = arguments[_key9];}
       return fs.exists.apply(fs, [this.dst].concat(pth));} }, { key: "toSnakeCase", value: function toSnakeCase(
 
 
