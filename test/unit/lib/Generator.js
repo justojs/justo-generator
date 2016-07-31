@@ -386,7 +386,7 @@ suite("Generator", function() {
     });
   });
 
-  suite.only("#exists()", function() {
+  suite("#exists()", function() {
     var gen;
 
     init("*", function() {
@@ -443,16 +443,21 @@ suite("Generator", function() {
     });
 
     suite("#mkdir()", function() {
-      test("mkdir() - dir not existing", function() {
+      test("mkdir(dir) - dir not existing", function() {
         gen.mkdir("test1");
         dir(DST, "test1").must.exist();
       });
 
-      test("mkdir() - dir existing", function() {
-        gen.mkdir("test2");
-        dir(DST, "test2").must.exist();
-        gen.mkdir("test2");
-        dir(DST, "test2").must.exist();
+      test("mkdir(dir, subdir) - dir not existing", function() {
+        gen.mkdir("test1", "test2");
+        dir(DST, "test1", "test2").must.exist();
+      });
+
+      test("mkdir(dir) - dir existing", function() {
+        gen.mkdir("test1");
+        dir(DST, "test1").must.exist();
+        gen.mkdir("test1");
+        dir(DST, "test1").must.exist();
       });
     });
 

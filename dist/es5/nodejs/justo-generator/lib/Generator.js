@@ -502,7 +502,7 @@ Generator = function () {
 
 
     _exists, value: function value() {for (var _len7 = arguments.length, entry = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {entry[_key7] = arguments[_key7];}
-      return fs.exists.apply(fs, [this.dst].concat(entry));} }, { key: "mkdir", value: function mkdir(
+      return fs.exists.apply(fs, [this.dst].concat(entry));} }, { key: "mkdir", value: function mkdir() 
 
 
 
@@ -510,9 +510,9 @@ Generator = function () {
 
 
 
-    dir) {var _this5 = this;
+    {var _this5 = this;for (var _len8 = arguments.length, dir = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {dir[_key8] = arguments[_key8];}
 
-      dir = _path2.default.join(this.dst, dir);
+      dir = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(dir)));
 
 
       if (this.mute) this[_mkdir](dir);else 
@@ -532,7 +532,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len8 = arguments.length, args = Array(_len8 > 1 ? _len8 - 1 : 0), _key8 = 1; _key8 < _len8; _key8++) {args[_key8 - 1] = arguments[_key8];}
+    cond) {for (var _len9 = arguments.length, args = Array(_len9 > 1 ? _len9 - 1 : 0), _key9 = 1; _key9 < _len9; _key9++) {args[_key9 - 1] = arguments[_key9];}
       if (isTrue(cond)) this.mkdir.apply(this, args);} }, { key: "cli", value: function cli(
 
 
@@ -566,7 +566,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len9 = arguments.length, args = Array(_len9 > 1 ? _len9 - 1 : 0), _key9 = 1; _key9 < _len9; _key9++) {args[_key9 - 1] = arguments[_key9];}
+    cond) {for (var _len10 = arguments.length, args = Array(_len10 > 1 ? _len10 - 1 : 0), _key10 = 1; _key10 < _len10; _key10++) {args[_key10 - 1] = arguments[_key10];}
       if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "getFiles", value: function getFiles(
 
 
@@ -605,7 +605,7 @@ Generator = function () {
 
 
 
-    {for (var _len10 = arguments.length, pth = Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {pth[_key10] = arguments[_key10];}
+    {for (var _len11 = arguments.length, pth = Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {pth[_key11] = arguments[_key11];}
       return fs.exists.apply(fs, [this.dst].concat(pth));} }, { key: "toSnakeCase", value: function toSnakeCase(
 
 
