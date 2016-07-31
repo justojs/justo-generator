@@ -497,16 +497,12 @@ Generator = function () {
 
 
     {var _this4 = this;for (var _len6 = arguments.length, entry = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {entry[_key6] = arguments[_key6];}
-
-      entry = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(entry)));
-
-
-      if (this.mute) return this[_exists](entry);else 
-      this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));})("Check whether '" + new fs.entry(entry).replacePath(this.dst + "/") + "' exists", entry);} }, { key: 
+      if (this.mute) return this[_exists].apply(this, entry);else 
+      this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));}).apply(undefined, ["Check whether '" + entry.join("/") + "' exists"].concat(entry));} }, { key: 
 
 
-    _exists, value: function value(entry) {
-      return fs.exists(entry);} }, { key: "mkdir", value: function mkdir(
+    _exists, value: function value() {for (var _len7 = arguments.length, entry = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {entry[_key7] = arguments[_key7];}
+      return fs.exists.apply(fs, [this.dst].concat(entry));} }, { key: "mkdir", value: function mkdir(
 
 
 
@@ -536,7 +532,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len7 = arguments.length, args = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {args[_key7 - 1] = arguments[_key7];}
+    cond) {for (var _len8 = arguments.length, args = Array(_len8 > 1 ? _len8 - 1 : 0), _key8 = 1; _key8 < _len8; _key8++) {args[_key8 - 1] = arguments[_key8];}
       if (isTrue(cond)) this.mkdir.apply(this, args);} }, { key: "cli", value: function cli(
 
 
@@ -570,7 +566,7 @@ Generator = function () {
 
 
 
-    cond) {for (var _len8 = arguments.length, args = Array(_len8 > 1 ? _len8 - 1 : 0), _key8 = 1; _key8 < _len8; _key8++) {args[_key8 - 1] = arguments[_key8];}
+    cond) {for (var _len9 = arguments.length, args = Array(_len9 > 1 ? _len9 - 1 : 0), _key9 = 1; _key9 < _len9; _key9++) {args[_key9 - 1] = arguments[_key9];}
       if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "getFiles", value: function getFiles(
 
 
@@ -609,7 +605,7 @@ Generator = function () {
 
 
 
-    {for (var _len9 = arguments.length, pth = Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {pth[_key9] = arguments[_key9];}
+    {for (var _len10 = arguments.length, pth = Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {pth[_key10] = arguments[_key10];}
       return fs.exists.apply(fs, [this.dst].concat(pth));} }, { key: "toSnakeCase", value: function toSnakeCase(
 
 

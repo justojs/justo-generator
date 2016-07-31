@@ -397,7 +397,15 @@ suite("Generator", function() {
       gen.exists("static/file.txt").must.be.eq(true);
     });
 
+    test("exists(dir, file) : true", function() {
+      gen.exists("static", "file.txt").must.be.eq(true);
+    });
+
     test("exists(dir) : true", function() {
+      gen.exists("handlebars").must.be.eq(true);
+    });
+
+    test("exists(dir, subdir) : true", function() {
       gen.exists("handlebars", "helpers").must.be.eq(true);
     });
 
