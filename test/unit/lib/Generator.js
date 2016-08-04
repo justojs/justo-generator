@@ -99,6 +99,12 @@ suite("Generator", function() {
       });
     });
 
+    suite("#getDirNames()", function() {
+      test("getDirNames(dir)", function() {
+        gen.getDirNames("handlebars").must.be.eq(["helpers", "partial"]);
+      });
+    });
+
     suite("#hasEntry()", function() {
       test("hasEntry(path) : true", function() {
         gen.hasEntry("handlebars").must.be.eq(true);
