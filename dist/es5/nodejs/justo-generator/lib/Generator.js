@@ -595,8 +595,9 @@ Generator = function () {
 
 
 
-    dir) {
-      return new fs.Dir(this.dst, dir).getDirNames();} }, { key: "getEntryNames", value: function getEntryNames() 
+
+    dir, opts) {
+      return new fs.Dir(this.dst, dir).getDirNames(opts);} }, { key: "getEntryNames", value: function getEntryNames() 
 
 
 

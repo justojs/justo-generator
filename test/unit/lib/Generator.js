@@ -103,6 +103,10 @@ suite("Generator", function() {
       test("getDirNames(dir)", function() {
         gen.getDirNames("handlebars").must.be.eq(["helpers", "partial"]);
       });
+
+      test("getDirNames(dir, opts)", function() {
+        gen.getDirNames("handlebars", {ignore: "helpers"}).must.be.eq(["partial"]);
+      });
     });
 
     suite("#hasEntry()", function() {
