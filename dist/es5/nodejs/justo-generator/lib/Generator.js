@@ -17,7 +17,7 @@ var generate = Symbol();
 var _append = Symbol();
 
 
-var inquirer = new _justoInquirer.Inquirer();var 
+var inquirer = new _justoInquirer.Inquirer();var
 
 
 
@@ -42,7 +42,8 @@ Generator = function () {
     Object.defineProperty(this, "src", { enumerable: false, writable: true, value: opts.src });
     Object.defineProperty(this, "dst", { enumerable: false, writable: true, value: opts.dst || process.cwd() });
     Object.defineProperty(this, "mute", { enumerable: false, value: !!opts.mute });
-    Object.defineProperty(this, "simple", { enumerable: false, value: opts.simple || _justo2.default.simple });}_createClass(Generator, [{ key: "init", value: function init() 
+    Object.defineProperty(this, "simple", { enumerable: false, value: opts.simple || _justo2.default.simple });
+  }_createClass(Generator, [{ key: "init", value: function init()
 
 
 
@@ -81,15 +82,17 @@ Generator = function () {
 
 
 
+    {
 
-    {} }, { key: "fin", value: function fin() 
+    } }, { key: "fin", value: function fin()
 
 
 
 
+    {
 
+    } }, { key: "preprompt", value: function preprompt()
 
-    {} }, { key: "preprompt", value: function preprompt() 
 
 
 
@@ -97,41 +100,38 @@ Generator = function () {
 
 
 
+    {
 
+    } }, { key: "prompt", value: function prompt(
 
 
-    {} }, { key: "prompt", value: function prompt(
 
 
 
 
+    answers) {
 
+    } }, { key: "pregenerate", value: function pregenerate(
 
 
 
-    answers) {} }, { key: "pregenerate", value: function pregenerate(
 
 
 
 
 
+    answers) {
 
+    } }, { key: "generate", value: function generate(
 
 
 
 
-    answers) {} }, { key: "generate", value: function generate(
 
 
+    answers) {
 
-
-
-
-
-
-    answers) {} }, { key: 
-
-
+    } }, { key:
 
     generate, value: function value(answers) {
       var res;
@@ -140,8 +140,8 @@ Generator = function () {
       res = this.generate(answers);
       if (!this.mute) _justo2.default.runner.reporters.end();
 
-      return res;} }, { key: "run", value: function run() 
-
+      return res;
+    } }, { key: "run", value: function run()
 
 
 
@@ -166,15 +166,15 @@ Generator = function () {
           if (snippet = this[generate](this.answers)) {
             this.clipboard(snippet);
             console.log();
-            console.log(snippet);}}}
-
-
-
+            console.log(snippet);
+          }
+        }
+      }
 
       if (err) console.error(err instanceof Error ? err.toString() : "Error: " + err);
 
-      this.fin();} }, { key: "confirm", value: function confirm(
-
+      this.fin();
+    } }, { key: "confirm", value: function confirm(
 
 
 
@@ -195,14 +195,14 @@ Generator = function () {
       if (typeof q == "string") q = { name: q };
 
 
-      if (this.responses.hasOwnProperty(q.name)) res = [true, "true", "yes"].indexOf(this.responses[q.name]) >= 0;else 
+      if (this.responses.hasOwnProperty(q.name)) res = [true, "true", "yes"].indexOf(this.responses[q.name]) >= 0;else
       res = inquirer.confirm(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
 
-      return res;} }, { key: "input", value: function input(
-
+      return res;
+    } }, { key: "input", value: function input(
 
 
 
@@ -222,14 +222,14 @@ Generator = function () {
       if (typeof q == "string") q = { name: q };
 
 
-      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
       res = inquirer.input(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
 
-      return res;} }, { key: "password", value: function password(
-
+      return res;
+    } }, { key: "password", value: function password(
 
 
 
@@ -249,14 +249,14 @@ Generator = function () {
       if (typeof q == "string") q = { name: q };
 
 
-      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
       res = inquirer.password(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
 
-      return res;} }, { key: "checkbox", value: function checkbox(
-
+      return res;
+    } }, { key: "checkbox", value: function checkbox(
 
 
 
@@ -276,14 +276,14 @@ Generator = function () {
       if (typeof q == "string") q = { name: q };
 
 
-      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
       res = inquirer.checkbox(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
 
-      return res;} }, { key: "list", value: function list(
-
+      return res;
+    } }, { key: "list", value: function list(
 
 
 
@@ -303,14 +303,14 @@ Generator = function () {
       if (typeof q == "string") q = { name: q };
 
 
-      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else 
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
       res = inquirer.list(Object.assign(getQOptions(this.params[q.name]), q));
 
       this.answers[q.name] = res;
 
 
-      return res;} }, { key: "clipboard", value: function clipboard(
-
+      return res;
+    } }, { key: "clipboard", value: function clipboard(
 
 
 
@@ -319,9 +319,13 @@ Generator = function () {
 
     text) {
       (0, _justoSync2.default)(function (done) {
-        ncp.copy(text, done);});} }, { key: "copy", value: function copy(
-
-
+        try {
+          ncp.copy(text, done);
+        } catch (e) {
+          done();
+        }
+      });
+    } }, { key: "copy", value: function copy(
 
 
 
@@ -340,28 +344,28 @@ Generator = function () {
       entry = _path2.default.join(this.src, src);
 
       if (!fs.exists(entry)) {
-        throw new Error("The '" + entry + "' file/dir doesn't exist.");}
+        throw new Error("The '" + entry + "' file/dir doesn't exist.");
+      }
 
 
-
-      if (name) dst = _path2.default.join(this.dst, _path2.default.dirname(src), name);else 
+      if (name) dst = _path2.default.join(this.dst, _path2.default.dirname(src), name);else
       dst = _path2.default.join(this.dst, src);
 
 
-      if (this.mute) this[_copy](entry, dst);else 
-      this.simple(function (params) {return _this[_copy].apply(_this, _toConsumableArray(params));})("Generate " + new fs.File(dst).replacePath(this.dst + "/"), entry, dst);} }, { key: 
-
+      if (this.mute) this[_copy](entry, dst);else
+      this.simple(function (params) {return _this[_copy].apply(_this, _toConsumableArray(params));})("Generate " + new fs.File(dst).replacePath(this.dst + "/"), entry, dst);
+    } }, { key:
 
     _copy, value: function value(src, dst) {
-      fs.copy(src, dst);} }, { key: "copyIf", value: function copyIf(
-
+      fs.copy(src, dst);
+    } }, { key: "copyIf", value: function copyIf(
 
 
 
 
     cond) {for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {args[_key - 1] = arguments[_key];}
-      if (isTrue(cond)) this.copy.apply(this, args);} }, { key: "append", value: function append(
-
+      if (isTrue(cond)) this.copy.apply(this, args);
+    } }, { key: "append", value: function append(
 
 
 
@@ -389,23 +393,23 @@ Generator = function () {
 
 
       if (this.mute) {
-        this[_append](entry, text, opts);} else 
-      {
+        this[_append](entry, text, opts);
+      } else {
         var file = new fs.File(entry).replacePath(this.dst + "/");
-        this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + file, entry, text, opts);}} }, { key: 
-
-
+        this.simple(function (params) {return _this2[_append].apply(_this2, _toConsumableArray(params));})("Append content to " + file, entry, text, opts);
+      }
+    } }, { key:
 
     _append, value: function value(dst, text, opts) {
-      new fs.File(dst).appendText(text, opts);} }, { key: "appendIf", value: function appendIf(
-
+      new fs.File(dst).appendText(text, opts);
+    } }, { key: "appendIf", value: function appendIf(
 
 
 
 
     cond) {for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
-      if (isTrue(cond)) this.append.apply(this, args);} }, { key: "read", value: function read(
-
+      if (isTrue(cond)) this.append.apply(this, args);
+    } }, { key: "read", value: function read(
 
 
 
@@ -417,12 +421,12 @@ Generator = function () {
 
       src = new fs.File(this.base, src);
       if (!src.exists()) {
-        throw new Error("The '" + src.path + "' file doesn't exist.");}
+        throw new Error("The '" + src.path + "' file doesn't exist.");
+      }
 
 
-
-      return src.text;} }, { key: "remove", value: function remove() 
-
+      return src.text;
+    } }, { key: "remove", value: function remove()
 
 
 
@@ -434,14 +438,14 @@ Generator = function () {
       entry = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(entry)));
 
 
-      if (this.mute) this[_remove](entry);else 
-      this.simple(function (params) {return _this3[_remove].apply(_this3, _toConsumableArray(params));})("Remove " + new fs.File(entry).replacePath(this.dst + "/"), entry);} }, { key: 
-
+      if (this.mute) this[_remove](entry);else
+      this.simple(function (params) {return _this3[_remove].apply(_this3, _toConsumableArray(params));})("Remove " + new fs.File(entry).replacePath(this.dst + "/"), entry);
+    } }, { key:
 
 
     _remove, value: function value(entry) {
-      fs.remove(entry);} }, { key: "removeIf", value: function removeIf(
-
+      fs.remove(entry);
+    } }, { key: "removeIf", value: function removeIf(
 
 
 
@@ -450,8 +454,8 @@ Generator = function () {
 
 
     cond) {for (var _len4 = arguments.length, entry = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {entry[_key4 - 1] = arguments[_key4];}
-      if (cond) this.remove.apply(this, entry);} }, { key: "template", value: function template() 
-
+      if (cond) this.remove.apply(this, entry);
+    } }, { key: "template", value: function template()
 
 
 
@@ -468,15 +472,15 @@ Generator = function () {
 
 
     {
-      throw new Error("Abstract method.");} }, { key: "templateIf", value: function templateIf(
-
+      throw new Error("Abstract method.");
+    } }, { key: "templateIf", value: function templateIf(
 
 
 
 
     cond) {for (var _len5 = arguments.length, args = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {args[_key5 - 1] = arguments[_key5];}
-      if (isTrue(cond)) this.template.apply(this, args);} }, { key: "templateAsString", value: function templateAsString() 
-
+      if (isTrue(cond)) this.template.apply(this, args);
+    } }, { key: "templateAsString", value: function templateAsString()
 
 
 
@@ -487,8 +491,8 @@ Generator = function () {
 
 
     {
-      throw new Error("Abstract method.");} }, { key: "exists", value: function exists() 
-
+      throw new Error("Abstract method.");
+    } }, { key: "exists", value: function exists()
 
 
 
@@ -497,13 +501,13 @@ Generator = function () {
 
 
     {var _this4 = this;for (var _len6 = arguments.length, entry = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {entry[_key6] = arguments[_key6];}
-      if (this.mute) return this[_exists].apply(this, entry);else 
-      return this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));}).apply(undefined, ["Check whether '" + entry.join("/") + "' exists"].concat(entry));} }, { key: 
-
+      if (this.mute) return this[_exists].apply(this, entry);else
+      return this.simple(function (params) {return _this4[_exists].apply(_this4, _toConsumableArray(params));}).apply(undefined, ["Check whether '" + entry.join("/") + "' exists"].concat(entry));
+    } }, { key:
 
     _exists, value: function value() {for (var _len7 = arguments.length, entry = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {entry[_key7] = arguments[_key7];}
-      return fs.exists.apply(fs, [this.dst].concat(entry));} }, { key: "mkdir", value: function mkdir() 
-
+      return fs.exists.apply(fs, [this.dst].concat(entry));
+    } }, { key: "mkdir", value: function mkdir()
 
 
 
@@ -515,26 +519,26 @@ Generator = function () {
       dir = _path2.default.join.apply(_path2.default, [this.dst].concat(_toConsumableArray(dir)));
 
 
-      if (this.mute) this[_mkdir](dir);else 
-      this.simple(function (params) {return _this5[_mkdir].apply(_this5, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);} }, { key: 
-
+      if (this.mute) this[_mkdir](dir);else
+      this.simple(function (params) {return _this5[_mkdir].apply(_this5, _toConsumableArray(params));})("Create dir " + new fs.Dir(dir).replacePath(this.dst + "/"), dir);
+    } }, { key:
 
     _mkdir, value: function value(dir) {
       dir = new fs.Dir(dir);
 
       if (!dir.exists()) {
         if (!dir.create()) {
-          throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");}}} }, { key: "mkdirIf", value: function mkdirIf(
-
-
-
+          throw new Error("The '" + dir.path + "' directory hasn't been able to be created.");
+        }
+      }
+    } }, { key: "mkdirIf", value: function mkdirIf(
 
 
 
 
     cond) {for (var _len9 = arguments.length, args = Array(_len9 > 1 ? _len9 - 1 : 0), _key9 = 1; _key9 < _len9; _key9++) {args[_key9 - 1] = arguments[_key9];}
-      if (isTrue(cond)) this.mkdir.apply(this, args);} }, { key: "cli", value: function cli(
-
+      if (isTrue(cond)) this.mkdir.apply(this, args);
+    } }, { key: "cli", value: function cli(
 
 
 
@@ -549,9 +553,9 @@ Generator = function () {
       args = opts.args || [];
 
 
-      if (this.mute) return this[_cli](cmd, args, opts);else 
-      return this.simple(function (params) {return _this6[_cli].apply(_this6, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);} }, { key: 
-
+      if (this.mute) return this[_cli](cmd, args, opts);else
+      return this.simple(function (params) {return _this6[_cli].apply(_this6, _toConsumableArray(params));})("Run " + cmd + " " + args.join(" "), cmd, args, opts);
+    } }, { key:
 
     _cli, value: function value(cmd, args, opts) {
       var res;
@@ -560,15 +564,15 @@ Generator = function () {
       res = _child_process2.default.spawnSync(cmd, args, { cwd: opts.wd || this.dst, shell: !!opts.shell });
 
 
-      return res.status !== null ? res.status : 1;} }, { key: "cliIf", value: function cliIf(
-
+      return res.status !== null ? res.status : 1;
+    } }, { key: "cliIf", value: function cliIf(
 
 
 
 
     cond) {for (var _len10 = arguments.length, args = Array(_len10 > 1 ? _len10 - 1 : 0), _key10 = 1; _key10 < _len10; _key10++) {args[_key10 - 1] = arguments[_key10];}
-      if (isTrue(cond)) return this.cli.apply(this, args);} }, { key: "getFiles", value: function getFiles(
-
+      if (isTrue(cond)) return this.cli.apply(this, args);
+    } }, { key: "getFiles", value: function getFiles(
 
 
 
@@ -577,18 +581,8 @@ Generator = function () {
 
 
     dir) {
-      return new fs.Dir(this.dst, dir).files;} }, { key: "getFileNames", value: function getFileNames(
-
-
-
-
-
-
-
-
-    dir, opts) {
-      return new fs.Dir(this.dst, dir).getFileNames(opts);} }, { key: "getDirNames", value: function getDirNames(
-
+      return new fs.Dir(this.dst, dir).files;
+    } }, { key: "getFileNames", value: function getFileNames(
 
 
 
@@ -597,8 +591,18 @@ Generator = function () {
 
 
     dir, opts) {
-      return new fs.Dir(this.dst, dir).getDirNames(opts);} }, { key: "getEntryNames", value: function getEntryNames() 
+      return new fs.Dir(this.dst, dir).getFileNames(opts);
+    } }, { key: "getDirNames", value: function getDirNames(
 
+
+
+
+
+
+
+    dir, opts) {
+      return new fs.Dir(this.dst, dir).getDirNames(opts);
+    } }, { key: "getEntryNames", value: function getEntryNames()
 
 
 
@@ -606,8 +610,8 @@ Generator = function () {
 
 
     {var dir = arguments.length <= 0 || arguments[0] === undefined ? "." : arguments[0];
-      return new fs.Dir(this.dst, dir).getEntryNames();} }, { key: "hasEntry", value: function hasEntry() 
-
+      return new fs.Dir(this.dst, dir).getEntryNames();
+    } }, { key: "hasEntry", value: function hasEntry()
 
 
 
@@ -616,8 +620,8 @@ Generator = function () {
 
 
     {for (var _len11 = arguments.length, pth = Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {pth[_key11] = arguments[_key11];}
-      return fs.exists.apply(fs, [this.dst].concat(pth));} }, { key: "toSnakeCase", value: function toSnakeCase(
-
+      return fs.exists.apply(fs, [this.dst].concat(pth));
+    } }, { key: "toSnakeCase", value: function toSnakeCase(
 
 
 
@@ -630,15 +634,15 @@ Generator = function () {
 
     text) {var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-      if (opts.case == "lower") text = text.toLowerCase();else 
+      if (opts.case == "lower") text = text.toLowerCase();else
       if (opts.case == "upper") text = text.toUpperCase();
 
 
       text = text.replace(/[ -]/g, "_");
 
 
-      return text;} }, { key: "toCamelCase", value: function toCamelCase(
-
+      return text;
+    } }, { key: "toCamelCase", value: function toCamelCase(
 
 
 
@@ -651,12 +655,12 @@ Generator = function () {
 
       text = text.replace(/([_ -][a-z])/g, function (letter) {return letter.toUpperCase();}).replace(/[_ -]/g, "");
 
-      if (opts.capitalized === true) text = text[0].toUpperCase() + text.slice(1);else 
+      if (opts.capitalized === true) text = text[0].toUpperCase() + text.slice(1);else
       if (opts.capitalized === false) text = text[0].toLowerCase() + text.slice(1);
 
 
-      return text;} }, { key: "base", get: function get() {return this.src;} }, { key: "desc", get: function get() {return "";} }, { key: "params", get: function get() {return {};} }, { key: "help", get: function get() {return { desc: this.desc, params: this.params };} }]);return Generator;}();exports.default = Generator;
-
+      return text;
+    } }, { key: "base", get: function get() {return this.src;} }, { key: "desc", get: function get() {return "";} }, { key: "params", get: function get() {return {};} }, { key: "help", get: function get() {return { desc: this.desc, params: this.params };} }]);return Generator;}();exports.default = Generator;
 
 
 
@@ -666,8 +670,8 @@ Generator = function () {
 
 
 function isTrue(cond) {
-  return [true, "true", "yes"].indexOf(cond) >= 0;}
-
+  return [true, "true", "yes"].indexOf(cond) >= 0;
+}
 
 
 
@@ -680,12 +684,13 @@ function getQOptions(q) {
 
 
   if (typeof q == "string") {
-    res.title = q;} else 
-  {
+    res.title = q;
+  } else {
     if (q.hasOwnProperty("title")) res.title = q.title;
     if (q.hasOwnProperty("default")) res.default = q.default;
-    if (q.hasOwnProperty("choices")) res.choices = q.choices;}
+    if (q.hasOwnProperty("choices")) res.choices = q.choices;
+  }
 
 
-
-  return res;}
+  return res;
+}

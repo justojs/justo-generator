@@ -9,7 +9,7 @@ var _justo = require("justo");var _justo2 = _interopRequireDefault(_justo);funct
 var _template = Symbol();
 
 
-var hbs = new _justoHandlebars.Handlebars();var 
+var hbs = new _justoHandlebars.Handlebars();var
 
 
 
@@ -18,15 +18,15 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
 
-  function HandlebarsGenerator() {var _Object$getPrototypeO;_classCallCheck(this, HandlebarsGenerator);for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {args[_key] = arguments[_key];}var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(HandlebarsGenerator)).call.apply(_Object$getPrototypeO, [this].concat(
+  function HandlebarsGenerator() {var _ref;_classCallCheck(this, HandlebarsGenerator);for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {args[_key] = arguments[_key];}var _this = _possibleConstructorReturn(this, (_ref = HandlebarsGenerator.__proto__ || Object.getPrototypeOf(HandlebarsGenerator)).call.apply(_ref, [this].concat(
 
     args)));
 
 
     _this.registerHelper("include", function (file) {
-      return new fs.File(_this.src, file).text;});return _this;}_createClass(HandlebarsGenerator, [{ key: "template", value: function template(
-
-
+      return new fs.File(_this.src, file).text;
+    });return _this;
+  }_createClass(HandlebarsGenerator, [{ key: "template", value: function template(
 
 
 
@@ -56,14 +56,14 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
       if (args.length == 1) {
-        if (typeof args[0] == "string") alias = args[0];else 
-        scope = args[0];} else 
-      if (args.length == 2) {
+        if (typeof args[0] == "string") alias = args[0];else
+        scope = args[0];
+      } else if (args.length == 2) {
         if (typeof args[0] == "string") {;alias = args[0];scope = args[1];} else {
-          ;scope = args[0];opts = args[1];}} else 
-      if (args.length >= 3) {
-        alias = args[0];scope = args[1];opts = args[2];}
-
+          ;scope = args[0];opts = args[1];}
+      } else if (args.length >= 3) {
+        alias = args[0];scope = args[1];opts = args[2];
+      }
 
       if (!scope) scope = {};
       if (!opts) opts = {};
@@ -75,56 +75,27 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
       dst = alias ? new fs.File(this.dst, _path2.default.dirname(entry), alias) : new fs.File(this.dst, entry);
 
 
-      if (this.mute) this[_template](entry, scope, opts, dst);else 
-      this.simple(function (params) {return _this2[_template].apply(_this2, _toConsumableArray(params));})("Generate " + new fs.File(dst).replacePath(this.dst + "/"), entry, scope, opts, dst);} }, { key: 
-
+      if (this.mute) this[_template](entry, scope, opts, dst);else
+      this.simple(function (params) {return _this2[_template].apply(_this2, _toConsumableArray(params));})("Generate " + new fs.File(dst).replacePath(this.dst + "/"), entry, scope, opts, dst);
+    } }, { key:
 
     _template, value: function value(entry, scope, opts, dst) {
-      dst.text = this.templateAsString(entry, scope, opts);} }, { key: "templateAsString", value: function templateAsString(
-
+      dst.text = this.templateAsString(entry, scope, opts);
+    } }, { key: "templateAsString", value: function templateAsString(
 
 
 
 
     file, scope, opts) {
-      return hbs.renderFile(_path2.default.join(this.src, file), { 
-        dir: { 
-          path: process.cwd(), 
-          name: _path2.default.basename(process.cwd()), 
-          parent: _path2.default.dirname(process.cwd()) }, 
+      return hbs.renderFile(_path2.default.join(this.src, file), {
+        dir: {
+          path: process.cwd(),
+          name: _path2.default.basename(process.cwd()),
+          parent: _path2.default.dirname(process.cwd()) },
 
-        scope: scope }, 
-      opts);} }, { key: "registerHelper", value: function registerHelper() 
-
-
-
-
-
-
-
-
-    {
-      hbs.registerHelper.apply(hbs, arguments);} }, { key: "hasHelper", value: function hasHelper(
-
-
-
-
-
-
-
-
-    name) {
-      return hbs.hasHelper(name);} }, { key: "unregisterHelper", value: function unregisterHelper(
-
-
-
-
-
-
-
-    name) {
-      hbs.unregisterHelper(name);} }, { key: "registerPartial", value: function registerPartial() 
-
+        scope: scope },
+      opts);
+    } }, { key: "registerHelper", value: function registerHelper()
 
 
 
@@ -133,8 +104,37 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
     {
-      hbs.registerPartial.apply(hbs, arguments);} }, { key: "registerPartialFromFile", value: function registerPartialFromFile(
+      hbs.registerHelper.apply(hbs, arguments);
+    } }, { key: "hasHelper", value: function hasHelper(
 
+
+
+
+
+
+
+    name) {
+      return hbs.hasHelper(name);
+    } }, { key: "unregisterHelper", value: function unregisterHelper(
+
+
+
+
+
+
+    name) {
+      hbs.unregisterHelper(name);
+    } }, { key: "registerPartial", value: function registerPartial()
+
+
+
+
+
+
+
+    {
+      hbs.registerPartial.apply(hbs, arguments);
+    } }, { key: "registerPartialFromFile", value: function registerPartialFromFile(
 
 
 
@@ -143,17 +143,8 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
     name, file) {
-      this.registerPartial(name, new fs.File(this.src, file).text);} }, { key: "hasPartial", value: function hasPartial(
-
-
-
-
-
-
-
-
-    name) {
-      return hbs.hasPartial(name);} }, { key: "unregisterPartial", value: function unregisterPartial(
+      this.registerPartial(name, new fs.File(this.src, file).text);
+    } }, { key: "hasPartial", value: function hasPartial(
 
 
 
@@ -162,4 +153,14 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
 
     name) {
-      hbs.unregisterPartial(name);} }]);return HandlebarsGenerator;}(_Generator3.default);exports.default = HandlebarsGenerator;
+      return hbs.hasPartial(name);
+    } }, { key: "unregisterPartial", value: function unregisterPartial(
+
+
+
+
+
+
+    name) {
+      hbs.unregisterPartial(name);
+    } }]);return HandlebarsGenerator;}(_Generator3.default);exports.default = HandlebarsGenerator;
