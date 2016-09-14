@@ -319,11 +319,9 @@ Generator = function () {
 
     text) {
       (0, _justoSync2.default)(function (done) {
-        try {
-          ncp.copy(text, done);
-        } catch (e) {
+        ncp.copy(text, function () {
           done();
-        }
+        });
       });
     } }, { key: "copy", value: function copy(
 
