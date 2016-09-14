@@ -1,12 +1,9 @@
 //imports
-const assert = require("assert");
 const justo = require("justo");
 const suite = justo.suite;
 const test = justo.test;
 const init = justo.init;
 const fin = justo.fin;
-const workflow = justo.workflow;
-const spy = require("justo-spy");
 const fs = require("justo-fs");
 const Dir = fs.Dir;
 const file = require("justo-assert-fs").file;
@@ -20,6 +17,7 @@ suite("Generator", function() {
       (function() {
         try {
           var gen = new Generator({mute: true});
+          gen;
         } catch (e) {
           e.message.must.be.eq("Generator options expected.");
         }

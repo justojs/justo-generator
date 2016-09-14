@@ -1,5 +1,4 @@
 //imports
-const assert = require("assert");
 const justo = require("justo");
 const suite = justo.suite;
 const test = justo.test;
@@ -7,7 +6,6 @@ const init = justo.init;
 const fin = justo.fin;
 const fs = require("justo-fs");
 const file = require("justo-assert-fs").file;
-const dir = require("justo-assert-fs").dir;
 const HandlebarsGenerator = require("../../../dist/es5/nodejs/justo-generator").HandlebarsGenerator;
 
 //suite
