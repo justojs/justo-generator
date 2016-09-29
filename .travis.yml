@@ -18,6 +18,7 @@ node_js:
   - 6.3
   - 6.4
   - 6.5
+  - 6.6
 os:
   - linux
 env:

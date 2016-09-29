@@ -31,7 +31,7 @@ Generator = function () {
 
 
 
-  function Generator() {var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];var responses = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];_classCallCheck(this, Generator);
+  function Generator() {var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var responses = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};_classCallCheck(this, Generator);
 
     if (!opts) throw new Error("Generator options expected.");
 
@@ -607,7 +607,7 @@ Generator = function () {
 
 
 
-    {var dir = arguments.length <= 0 || arguments[0] === undefined ? "." : arguments[0];
+    {var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ".";
       return new fs.Dir(this.dst, dir).getEntryNames();
     } }, { key: "hasEntry", value: function hasEntry()
 
@@ -630,7 +630,7 @@ Generator = function () {
 
 
 
-    text) {var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    text) {var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (opts.case == "lower") text = text.toLowerCase();else
       if (opts.case == "upper") text = text.toUpperCase();
@@ -649,7 +649,7 @@ Generator = function () {
 
 
 
-    text) {var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    text) {var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       text = text.replace(/([_ -][a-z])/g, function (letter) {return letter.toUpperCase();}).replace(/[_ -]/g, "");
 

@@ -143,6 +143,26 @@ HandlebarsGenerator = function (_Generator) {_inherits(HandlebarsGenerator, _Gen
 
     name, file) {
       this.registerPartial(name, new fs.File(this.src, file).text);
+    } }, { key: "registerPartialsFromFolder", value: function registerPartialsFromFolder(
+
+
+
+
+
+
+
+
+    dir, ns) {
+
+      dir = new fs.Dir(this.src, dir);
+      if (!dir.exists()) return;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+
+
+        for (var _iterator = dir.entries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var entry = _step.value;
+          if (entry instanceof fs.File) {
+            this.registerPartial((ns || "") + entry.name.replace(".hbs", ""), entry.text);
+          }
+        }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
     } }, { key: "hasPartial", value: function hasPartial(
 
 

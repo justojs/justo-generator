@@ -99,11 +99,11 @@ suite("Generator", function() {
 
     suite("#getDirNames()", function() {
       test("getDirNames(dir)", function() {
-        gen.getDirNames("handlebars").must.be.eq(["helpers", "partial"]);
+        gen.getDirNames("handlebars").must.be.eq(["helpers", "partial", "partials"]);
       });
 
       test("getDirNames(dir, opts)", function() {
-        gen.getDirNames("handlebars", {ignore: "helpers"}).must.be.eq(["partial"]);
+        gen.getDirNames("handlebars", {ignore: "helpers"}).must.be.eq(["partial", "partials"]);
       });
     });
 
@@ -119,7 +119,7 @@ suite("Generator", function() {
 
     suite("#getEntryNames()", function() {
       test("getEntryNames(dir)", function() {
-        gen.getEntryNames("handlebars").sort().must.be.eq(["file.json", "helpers", "partial"]);
+        gen.getEntryNames("handlebars").sort().must.be.eq(["file.json", "helpers", "partial", "partials"]);
       });
     });
 

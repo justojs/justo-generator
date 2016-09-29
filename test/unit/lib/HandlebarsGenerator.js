@@ -98,6 +98,43 @@ suite("HandlebarsGenerator", function() {
       file(DST, "handlebars/partial/partial.txt").text.must.be.eq("<b>OK</b>\n");
     });
 
+    suite("#registerPartialsFromFolder()", function() {
+      test("#registerPartialsFromFolder(dir)", function() {
+        gen.registerPartialsFromFolder("handlebars/partials");
+
+        gen.hasPartial("one").must.be.eq(true);
+        gen.hasPartial("two").must.be.eq(true);
+        gen.hasPartial("three").must.be.eq(true);
+
+        gen.template("handlebars/partial/one.txt");
+        file(DST, "handlebars/partial/one.txt").text.must.be.eq("uno\n");
+
+        gen.template("handlebars/partial/two.txt");
+        file(DST, "handlebars/partial/two.txt").text.must.be.eq("due\n");
+
+        gen.template("handlebars/partial/three.txt");
+        file(DST, "handlebars/partial/three.txt").text.must.be.eq("tre\n");
+      });
+
+      test("#registerPartialsFromFolder(dir, ns)", function() {
+        gen.registerPartialsFromFolder("handlebars/partials", "myns/");
+
+        gen.hasPartial("myns/one").must.be.eq(true);
+        gen.hasPartial("myns/two").must.be.eq(true);
+        gen.hasPartial("myns/three").must.be.eq(true);
+
+        gen.template("handlebars/partial/ns-one.txt");
+        file(DST, "handlebars/partial/ns-one.txt").text.must.be.eq("uno\n");
+
+        gen.template("handlebars/partial/ns-two.txt");
+        file(DST, "handlebars/partial/ns-two.txt").text.must.be.eq("due\n");
+
+        gen.template("handlebars/partial/ns-three.txt");
+        file(DST, "handlebars/partial/ns-three.txt").text.must.be.eq("tre\n");
+      });
+    });
+
+
     test("#unregisterPartial()", function() {
       gen.registerPartial("mypartial", "<b>{{msg}}</b>");
       gen.hasPartial("mypartial").must.be.eq(true);
