@@ -285,6 +285,33 @@ Generator = function () {
 
 
       return res;
+    } }, { key: "select", value: function select(
+
+
+
+
+
+
+
+
+
+
+
+
+    q) {
+      var res;
+
+
+      if (typeof q == "string") q = { name: q };
+
+
+      if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
+      res = inquirer.list(Object.assign(getQOptions(this.params[q.name]), q));
+
+      this.answers[q.name] = res;
+
+
+      return res;
     } }, { key: "list", value: function list(
 
 
@@ -687,6 +714,7 @@ function getQOptions(q) {
     if (q.hasOwnProperty("title")) res.title = q.title;
     if (q.hasOwnProperty("default")) res.default = q.default;
     if (q.hasOwnProperty("choices")) res.choices = q.choices;
+    if (q.hasOwnProperty("options")) res.choices = q.options;
   }
 
 
