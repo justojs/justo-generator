@@ -198,7 +198,9 @@ suite("Generator", function() {
           input: "elvisc",
           password: "costello",
           checkbox: ["one", "three"],
-          list: "two"
+          multiselect: ["one", "three"],
+          list: "two",
+          select: "two"
         });
       });
 
@@ -234,12 +236,28 @@ suite("Generator", function() {
         gen.answers.checkbox.must.be.eq(["one", "three"]);
       });
 
+      test("#multiselect()", function() {
+        var res;
+
+        res = gen.multiselect({name: "multiselect", title: "Multiselect", options: ["one", "two", "three"]});
+        res.must.be.eq(["one", "three"]);
+        gen.answers.multiselect.must.be.eq(["one", "three"]);
+      });
+
       test("#list()", function() {
         var res;
 
         res = gen.list({name: "list", title: "List", choices: ["one", "two", "three"]});
         res.must.be.eq("two");
         gen.answers.list.must.be.eq("two");
+      });
+
+      test("#select()", function() {
+        var res;
+
+        res = gen.select({name: "select", title: "Select", options: ["one", "two", "three"]});
+        res.must.be.eq("two");
+        gen.answers.select.must.be.eq("two");
       });
     });
 

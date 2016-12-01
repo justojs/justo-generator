@@ -285,7 +285,7 @@ Generator = function () {
 
 
       return res;
-    } }, { key: "select", value: function select(
+    } }, { key: "multiselect", value: function multiselect(
 
 
 
@@ -306,7 +306,38 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
-      res = inquirer.list(Object.assign(getQOptions(this.params[q.name]), q));
+      res = inquirer.checkbox(getInquirerOptions(this.params[q.name], q));
+
+      this.answers[q.name] = res;
+
+
+      return res;
+    } }, { key: "select", value: function select(
+
+
+
+
+
+
+
+
+
+
+
+
+    q) {
+      var res;
+
+
+      if (typeof q == "string") q = { name: q };
+
+
+      if (this.responses.hasOwnProperty(q.name)) {
+        res = this.responses[q.name];
+      } else {
+        res = inquirer.list(getInquirerOptions(this.params[q.name], q));
+      }
+
 
       this.answers[q.name] = res;
 
@@ -716,6 +747,34 @@ function getQOptions(q) {
     if (q.hasOwnProperty("choices")) res.choices = q.choices;
     if (q.hasOwnProperty("options")) res.choices = q.options;
   }
+
+
+  return res;
+}
+
+function getInquirerOptions(o, c) {
+  var res = {};
+
+
+  o = o || {};
+  c = c || {};
+
+
+  if (typeof o == "string") {
+    res.title = o;
+  } else {
+    if (o.hasOwnProperty("name")) res.name = o.name;
+    if (o.hasOwnProperty("title")) res.title = o.title;
+    if (o.hasOwnProperty("default")) res.default = o.default;
+    if (o.hasOwnProperty("choices")) res.choices = o.choices;
+    if (o.hasOwnProperty("options")) res.choices = o.options;
+  }
+
+  if (c.hasOwnProperty("name")) res.name = c.name;
+  if (c.hasOwnProperty("title")) res.title = c.title;
+  if (c.hasOwnProperty("default")) res.default = c.default;
+  if (c.hasOwnProperty("choices")) res.choices = c.choices;
+  if (c.hasOwnProperty("options")) res.choices = c.options;
 
 
   return res;
