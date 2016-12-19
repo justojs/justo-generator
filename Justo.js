@@ -67,4 +67,4 @@ catalog.workflow({name: "publish", desc: "NPM publish."}, function() {
   });
 });
 
-catalog.macro({name: "default", desc: "Default task."}, ["build", "test"]);
+catalog.macro({name: "default", desc: "Build and test."}, ["build", "test"]);

@@ -13,7 +13,7 @@ const Generator = require("../../../dist/es5/nodejs/justo-generator").Generator;
 //suite
 suite("Generator", function() {
   suite("#constructor()", function() {
-    test("constructor()", function() {
+    test.only("constructor()", function() {
       (function() {
         try {
           var gen = new Generator({mute: true});
