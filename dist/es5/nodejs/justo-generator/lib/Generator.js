@@ -225,7 +225,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
-      res = inquirer.input(Object.assign(getQOptions(this.params[q.name]), q));
+      res = inquirer.input(getInquirerOptions(this.params[q.name], q));
 
       this.answers[q.name] = res;
 
@@ -252,7 +252,7 @@ Generator = function () {
 
 
       if (this.responses.hasOwnProperty(q.name)) res = this.responses[q.name];else
-      res = inquirer.password(Object.assign(getQOptions(this.params[q.name]), q));
+      res = inquirer.password(getInquirerOptions(this.params[q.name], q));
 
       this.answers[q.name] = res;
 
