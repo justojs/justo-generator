@@ -617,7 +617,7 @@ Generator = function () {
       var res;
 
 
-      res = _child_process2.default.spawnSync(cmd, args, { cwd: opts.wd || this.dst, shell: !!opts.shell });
+      res = _child_process2.default.spawnSync(cmd, args, { cwd: this.dst, shell: !!opts.shell });
 
 
       return res.status !== null ? res.status : 1;
